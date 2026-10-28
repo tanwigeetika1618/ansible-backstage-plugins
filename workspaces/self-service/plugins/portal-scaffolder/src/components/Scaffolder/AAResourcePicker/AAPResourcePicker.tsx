@@ -13,54 +13,20 @@ import {
   ScaffolderRJSFFieldProps,
 } from '@backstage/plugin-scaffolder-react';
 
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-
-import {
-  Chip,
-  CircularProgress,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-  Typography,
-} from '@material-ui/core';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 import { rhAapAuthApiRef } from '@ansible/aap-app-auth';
 
 type AapResourcePickerSelection = string | number | string[] | number[];
 
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
-  labelWithSpinner: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: theme.spacing(0.75),
-    maxWidth: '100%',
-  },
-  labelSpinner: {
-    flexShrink: 0,
-  },
-  menuItemContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-  },
-}));
+const chipSx = { margin: '2px' } as const;
+const labelSpinnerSx = { flexShrink: 0 } as const;
 
 function primitiveFieldToString(value: unknown): string {
   if (value === undefined || value === null) {
@@ -143,7 +109,7 @@ function applyInitialSelectionAfterAutocomplete(options: {
   );
   const ids = extractIdsFromRows(matched, options.idKey);
   options.setSelected(
-    options.multiple ? (ids as string[] | number[]) : (ids[0] ?? ''),
+    options.multiple ? (ids as string[] | number[]) : ids[0] ?? '',
   );
 }
 
@@ -250,7 +216,6 @@ export const AAPResourcePicker = (props: ScaffolderRJSFFieldProps) => {
     () => getSelectionFromFieldValue(formData, multiple, _idKey),
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const classes = useStyles();
 
   useEffect(() => {
     setSelected(
@@ -428,13 +393,13 @@ export const AAPResourcePicker = (props: ScaffolderRJSFFieldProps) => {
     }
 
     return (
-      <div className={classes.chips}>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {/* @ts-ignore */}
         {items.map(value => (
           <Chip
             key={value[_idKey]}
             label={String(value[_nameKey])}
-            className={classes.chip}
+            sx={chipSx}
           />
         ))}
       </div>
@@ -473,11 +438,16 @@ export const AAPResourcePicker = (props: ScaffolderRJSFFieldProps) => {
       disabled={disabled}
     >
       <InputLabel id={`${name}-select-label`} shrink={inputLabelShrink}>
-        <span className={classes.labelWithSpinner}>
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            maxWidth: '100%',
+          }}
+        >
           {title ?? 'Inventory'}
-          {loading && (
-            <CircularProgress className={classes.labelSpinner} size={12} />
-          )}
+          {loading && <CircularProgress sx={labelSpinnerSx} size={12} />}
         </span>
       </InputLabel>
       <Select
@@ -500,7 +470,14 @@ export const AAPResourcePicker = (props: ScaffolderRJSFFieldProps) => {
                 value={item[_idKey] as string | number}
               >
                 {credentialType ? (
-                  <div className={classes.menuItemContent}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      width: '100%',
+                    }}
+                  >
                     <Typography>
                       <span style={{ fontWeight: 450 }}>
                         {primitiveFieldToString(item[_nameKey])}

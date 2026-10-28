@@ -17,11 +17,11 @@ import {
   gitRepositoriesRouteRef,
   historyRouteRef,
 } from './routes';
-import HomeIcon from '@material-ui/icons/Home';
-import HistoryIcon from '@material-ui/icons/History';
-import BuildIcon from '@material-ui/icons/Build';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import HomeIcon from '@mui/icons-material/Home';
+import HistoryIcon from '@mui/icons-material/History';
+import BuildIcon from '@mui/icons-material/Build';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 /** Native discovery and lifecycle around the existing Portal wizard. */
 const portalScaffolderPlugin: FrontendPlugin = createFrontendPlugin({

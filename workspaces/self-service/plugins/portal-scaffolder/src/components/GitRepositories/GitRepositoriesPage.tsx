@@ -17,7 +17,10 @@ import {
   HeaderTabs,
   LinkButton,
 } from '@backstage/core-components';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
 import {
   Navigate,
   Route,
@@ -26,8 +29,8 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import CategoryOutlinedIcon from '@material-ui/icons/CategoryOutlined';
-import TimelineIcon from '@material-ui/icons/Timeline';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import TimelineIcon from '@mui/icons-material/Timeline';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { gitRepositoriesViewPermission } from '@ansible/backstage-rhaap-common/permissions';
 
@@ -61,7 +64,7 @@ import { RepositoriesCIActivityTab } from './RepositoriesCIActivityTab';
 import { RepositoryDetailsPage } from './RepositoryDetailsPage';
 import { gitReposCache } from './gitReposCache';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   tabsSection: {
     width: '100%',
     '& .MuiTabs-root': {

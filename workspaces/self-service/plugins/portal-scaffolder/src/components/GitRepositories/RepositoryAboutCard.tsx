@@ -1,12 +1,10 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Link,
-  Button,
-} from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Entity } from '@backstage/catalog-model';
 
 import { useCollectionsStyles } from '../CollectionsCatalog/styles';
@@ -48,7 +46,9 @@ export const RepositoryAboutCard = ({
     ? entity.metadata.tags
     : [];
 
-  const collectionsLabel = `${collectionCount} collection${collectionCount === 1 ? '' : 's'}`;
+  const collectionsLabel = `${collectionCount} collection${
+    collectionCount === 1 ? '' : 's'
+  }`;
   const containsCollectionsPart =
     collectionCount > 0
       ? (() => {

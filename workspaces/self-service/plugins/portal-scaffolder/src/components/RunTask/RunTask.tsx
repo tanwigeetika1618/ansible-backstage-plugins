@@ -20,16 +20,15 @@ import {
   taskCreatePermission,
   taskReadPermission,
 } from '@backstage/plugin-scaffolder-common/alpha';
-import {
-  Button,
-  CircularProgress,
-  makeStyles,
-  Typography,
-  Box,
-  IconButton,
-} from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import { rootRouteRef, selectedTemplateRouteRef } from '../../routes';
 import { createTarArchive } from '../utils/tarArchiveUtils';
 import {
@@ -37,13 +36,13 @@ import {
   resolvePublishToScmFromParameters,
 } from './runTaskParameters';
 
-const headerStyles = makeStyles(theme => ({
+const headerStyles = makeStyles((theme: Theme) => ({
   header_title_color: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
   },
   header_subtitle: {
     display: 'inline-block',
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
     maxWidth: '75ch',
     marginTop: '8px',
@@ -63,7 +62,7 @@ const headerStyles = makeStyles(theme => ({
     },
   },
   backButton: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.04)',
     },

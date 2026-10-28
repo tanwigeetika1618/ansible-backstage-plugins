@@ -4,9 +4,14 @@ import {
 } from '@ansible/portal-extension-host/alpha';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Button, Typography, Tab, Tabs, Menu } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Entity } from '@backstage/catalog-model';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import {

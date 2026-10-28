@@ -1,16 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Link, Paper, Typography } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
-import CancelOutlined from '@material-ui/icons/CancelOutlined';
-import NotInterestedOutlined from '@material-ui/icons/NotInterestedOutlined';
-import SyncOutlined from '@material-ui/icons/SyncOutlined';
-import ScheduleOutlined from '@material-ui/icons/ScheduleOutlined';
-import BlockOutlined from '@material-ui/icons/BlockOutlined';
-import HelpOutline from '@material-ui/icons/HelpOutline';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import NotInterestedOutlined from '@mui/icons-material/NotInterestedOutlined';
+import SyncOutlined from '@mui/icons-material/SyncOutlined';
+import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined';
+import BlockOutlined from '@mui/icons-material/BlockOutlined';
+import HelpOutline from '@mui/icons-material/HelpOutline';
 import {
   useApi,
   discoveryApiRef,
@@ -75,7 +78,7 @@ export const RepositoriesCIActivityTab = ({
           if (cancelled) return undefined;
           const items = Array.isArray(response)
             ? response
-            : (response?.items ?? []);
+            : response?.items ?? [];
           return ciActivityCache.startLoading(items, discoveryApi, fetchApi);
         })
         .catch(e => {

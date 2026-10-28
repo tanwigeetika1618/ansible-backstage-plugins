@@ -1,20 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
-import {
-  TextField,
-  Typography,
-  Box,
-  CircularProgress,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
 import { useApi } from '@backstage/core-plugin-api';
 import { useFieldValidation } from '../../CreateTask/FieldValidationContext';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Entity } from '@backstage/catalog-model';
-import WarningIcon from '@material-ui/icons/Warning';
+import WarningIcon from '@mui/icons-material/Warning';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: '100%',
   },
@@ -240,7 +239,7 @@ export const EEFileNamePickerExtension = ({
       {isChecking && !formatError && (
         <Box className={classes.loadingBox}>
           <CircularProgress size={16} />
-          <Typography variant="caption" color="textSecondary">
+          <Typography variant="caption" color="text.secondary">
             Checking catalog...
           </Typography>
         </Box>

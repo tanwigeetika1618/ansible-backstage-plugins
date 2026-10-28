@@ -15,25 +15,25 @@ import {
   UserListPicker,
   useStarredEntities,
 } from '@backstage/plugin-catalog-react';
-import {
-  Backdrop,
-  Box,
-  Chip,
-  CircularProgress,
-  FormControl,
-  Grid,
-  IconButton,
-  Input,
-  Menu,
-  MenuItem,
-  Paper,
-  Select,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MoreVert from '@material-ui/icons/MoreVert';
-import OpenInNew from '@material-ui/icons/OpenInNew';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import Select from '@mui/material/Select';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import MoreVert from '@mui/icons-material/MoreVert';
+import OpenInNew from '@mui/icons-material/OpenInNew';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EntityLinkButton } from '../../common';
 import { UnregisterEntityDialog } from '../../UnregisterEntityDialog';
@@ -50,7 +50,7 @@ import { useEEBuildFlow } from './useEEBuildFlow';
 
 const DESCRIPTION_TRUNCATE_LENGTH = 30;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   flex: {
     display: 'flex',
   },
@@ -543,7 +543,6 @@ export const EEListPage = ({
                   }
                   input={<Input disableUnderline />}
                   MenuProps={{
-                    getContentAnchorEl: null,
                     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                   }}
                 >

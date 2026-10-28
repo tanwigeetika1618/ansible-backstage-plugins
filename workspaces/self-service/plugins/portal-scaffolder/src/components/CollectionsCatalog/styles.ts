@@ -1,10 +1,15 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
 
-export const useTableWrapperStyles = makeStyles(theme => ({
+export const useTableWrapperStyles = makeStyles((theme: Theme) => ({
   tableWrapper: {
     borderRadius: 12,
     overflow: 'hidden',
-    border: `1px solid ${theme.palette.type === 'dark' ? theme.palette.grey[700] : theme.palette.grey[500]}`,
+    border: `1px solid ${
+      theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[500]
+    }`,
     '& .MuiTypography-h5': {
       fontSize: '1.75rem',
       fontWeight: 600,
@@ -34,7 +39,7 @@ export const useTableWrapperStyles = makeStyles(theme => ({
   },
 }));
 
-export const useCollectionsStyles = makeStyles(theme => ({
+export const useCollectionsStyles = makeStyles((theme: Theme) => ({
   syncButton: {
     textTransform: 'none',
     fontWeight: 500,
@@ -556,7 +561,7 @@ export const useCollectionsStyles = makeStyles(theme => ({
     },
     '& code': {
       backgroundColor:
-        theme.palette.type === 'dark'
+        theme.palette.mode === 'dark'
           ? 'rgba(255, 255, 255, 0.1)'
           : 'rgba(0, 0, 0, 0.05)',
       padding: '2px 6px',
@@ -566,7 +571,7 @@ export const useCollectionsStyles = makeStyles(theme => ({
     },
     '& pre': {
       backgroundColor:
-        theme.palette.type === 'dark'
+        theme.palette.mode === 'dark'
           ? 'rgba(255, 255, 255, 0.1)'
           : 'rgba(0, 0, 0, 0.05)',
       padding: theme.spacing(2),
@@ -596,7 +601,7 @@ export const useCollectionsStyles = makeStyles(theme => ({
     },
     '& th': {
       backgroundColor:
-        theme.palette.type === 'dark'
+        theme.palette.mode === 'dark'
           ? 'rgba(255, 255, 255, 0.05)'
           : 'rgba(0, 0, 0, 0.03)',
       fontWeight: 600,
@@ -646,7 +651,11 @@ export const useCollectionsStyles = makeStyles(theme => ({
     textTransform: 'capitalize' as const,
     marginLeft: theme.spacing(1),
     flexShrink: 0,
-    border: `1px solid ${theme.palette.type === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)'}`,
+    border: `1px solid ${
+      theme.palette.mode === 'dark'
+        ? 'rgba(255, 255, 255, 0.3)'
+        : 'rgba(0, 0, 0, 0.2)'
+    }`,
   },
   badgeCertified: {
     backgroundColor: 'rgba(65, 253, 71, 0.15)',
@@ -658,7 +667,7 @@ export const useCollectionsStyles = makeStyles(theme => ({
   },
   badgeCommunity: {
     backgroundColor:
-      theme.palette.type === 'dark'
+      theme.palette.mode === 'dark'
         ? 'rgba(255, 255, 255, 0.08)'
         : 'rgba(0, 0, 0, 0.06)',
     color: theme.palette.text.secondary,

@@ -1,16 +1,15 @@
 import { ChangeEvent } from 'react';
 import { FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
-import {
-  FormControl,
-  RadioGroup,
-  Radio,
-  Typography,
-  Box,
-  Chip,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import InfoIcon from '@material-ui/icons/Info';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import InfoIcon from '@mui/icons-material/Info';
 import { parseMarkdownLinks } from '../utils/parseMarkdownLinks';
 
 // This is the recommended base image value for EE builder templates
@@ -18,7 +17,7 @@ import { parseMarkdownLinks } from '../utils/parseMarkdownLinks';
 const RECOMMENDED_BASE_IMAGE_VALUE =
   'registry.redhat.io/ansible-automation-platform/ee-minimal-rhel8:2.18';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontSize: '1.5rem',
     fontWeight: 500,

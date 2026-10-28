@@ -1,23 +1,21 @@
 import { useEffect, useState, useMemo } from 'react';
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  Link,
-  Menu,
-  MenuItem,
-  Paper,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Star from '@mui/icons-material/Star';
+import StarBorder from '@mui/icons-material/StarBorder';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import {
   CatalogFilterLayout,
@@ -32,8 +30,8 @@ import {
 import { useApi, useRouteRef } from '@backstage/core-plugin-api';
 import { Progress, Table, TableColumn } from '@backstage/core-components';
 
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { getSourceUrl, formatTimeAgo } from '../CollectionsCatalog/utils';
 import { EntityLinkButton, GitLabIcon, SyncStatusMap } from '../common';
 import {
@@ -285,7 +283,7 @@ const RepositoriesTableInner = ({
           );
         if (eeCount > 0) parts.push(`${eeCount} EE${eeCount === 1 ? '' : 's'}`);
         return (
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="text.secondary">
             {parts.length > 0 ? parts.join(', ') : '—'}
           </Typography>
         );
@@ -301,10 +299,10 @@ const RepositoriesTableInner = ({
       id: 'lastActivity',
       render: (entity: Entity) => {
         const entry = lastActivityMap[stringifyEntityRef(entity)];
-        const text = lastActivityLoading ? '—' : (entry?.text ?? 'N/A');
+        const text = lastActivityLoading ? '—' : entry?.text ?? 'N/A';
         const url = entry?.url;
         return (
-          <Typography variant="body2" color="textSecondary" component="span">
+          <Typography variant="body2" color="text.secondary" component="span">
             {url ? (
               <Link
                 href={url}
@@ -425,7 +423,7 @@ const RepositoriesTableInner = ({
                 getOptionLabel={(opt: { value: string; label: string }) =>
                   opt.label
                 }
-                getOptionSelected={(
+                isOptionEqualToValue={(
                   opt: { value: string; label: string },
                   val: { value: string; label: string },
                 ) => opt.value === val?.value}
@@ -485,7 +483,7 @@ const RepositoriesTableInner = ({
               >
                 <Typography
                   variant="body2"
-                  color="textSecondary"
+                  color="text.secondary"
                   style={{ fontSize: '0.875rem', paddingLeft: 16 }}
                 >
                   Showing {startIndex + 1}-{endIndex} of {totalCount}{' '}

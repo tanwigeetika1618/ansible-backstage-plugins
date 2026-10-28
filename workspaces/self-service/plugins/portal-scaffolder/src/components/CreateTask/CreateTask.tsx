@@ -14,26 +14,25 @@ import {
 import type { TemplateParameterSchema } from '@backstage/plugin-scaffolder-common';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  makeStyles,
-} from '@material-ui/core';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import { rootRouteRef } from '../../routes';
 
-const headerStyles = makeStyles(theme => ({
+const headerStyles = makeStyles((theme: Theme) => ({
   header_title_color: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
   },
   header_subtitle: {
     display: 'inline-block',
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
     maxWidth: '75ch',
     marginTop: '8px',
@@ -53,7 +52,7 @@ const headerStyles = makeStyles(theme => ({
     },
   },
   backButton: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.04)',
     },
@@ -123,8 +122,9 @@ export const CreateTask = ({
           throw new Error('Missing name or namespace in URL parameters');
         }
         const templateRef = `template:${namespace}/${templateName}`;
-        const response =
-          await scaffolderApi.getTemplateParameterSchema(templateRef);
+        const response = await scaffolderApi.getTemplateParameterSchema(
+          templateRef,
+        );
         setEntityTemplate(response as TemplateParameterSchema);
 
         try {

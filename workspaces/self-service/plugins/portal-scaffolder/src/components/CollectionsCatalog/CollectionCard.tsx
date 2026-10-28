@@ -1,16 +1,14 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  IconButton,
-  Link,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
-import StarBorder from '@material-ui/icons/StarBorder';
-import Star from '@material-ui/icons/Star';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import StarBorder from '@mui/icons-material/StarBorder';
+import Star from '@mui/icons-material/Star';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useRouteRef } from '@backstage/core-plugin-api';
 
 import { CollectionCardProps } from './types';

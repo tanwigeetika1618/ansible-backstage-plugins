@@ -10,24 +10,23 @@ import {
   useRouteRef,
 } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
-import {
-  Backdrop,
-  Box,
-  Button,
-  CircularProgress,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Tab,
-  Tabs,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import BuildIcon from '@material-ui/icons/Build';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import type { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import BuildIcon from '@mui/icons-material/Build';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { rootRouteRef } from '../../../routes';
@@ -66,7 +65,7 @@ import {
   ExtensionActionMenuItem,
 } from '../../../extensions/ExtensionRenderer';
 
-const useActionsMenuStyles = makeStyles(theme => ({
+const useActionsMenuStyles = makeStyles((theme: Theme) => ({
   actionsButton: {
     textTransform: 'none',
     fontWeight: 600,
@@ -81,7 +80,7 @@ const useActionsMenuStyles = makeStyles(theme => ({
   },
 }));
 
-const usePageStyles = makeStyles(theme => ({
+const usePageStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
@@ -542,7 +541,6 @@ export const EEDetailsPage: React.FC = () => {
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   classes={{ paper: actionsMenuClasses.menuPaper }}
-                  getContentAnchorEl={null}
                 >
                   {isEntityBuildable(entity as Entity) && (
                     <MenuItem

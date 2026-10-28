@@ -1,12 +1,16 @@
 import { ChangeEvent, useState, useEffect, useRef } from 'react';
 import { FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
-import { Button, Typography, Box, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import UploadIcon from '@material-ui/icons/CloudUpload';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import UploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontSize: '1.2rem',
     fontWeight: 500,

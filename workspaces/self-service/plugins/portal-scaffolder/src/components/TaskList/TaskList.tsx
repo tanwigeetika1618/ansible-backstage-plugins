@@ -6,33 +6,32 @@ import {
 } from '@backstage/core-plugin-api';
 import { scaffolderApiRef } from '@backstage/plugin-scaffolder-react';
 import type { ScaffolderTask } from '@backstage/plugin-scaffolder-common';
-import { TablePaginationActionsProps } from '@material-ui/core/TablePagination/TablePaginationActions';
+import type { TablePaginationActionsProps } from '@mui/material/TablePagination/TablePaginationActions';
 import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';
 import { Content, Header, Page } from '@backstage/core-components';
-import {
-  Box,
-  Grid,
-  IconButton,
-  Link,
-  makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-} from '@material-ui/core';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import BlockIcon from '@material-ui/icons/Block';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import BlockIcon from '@mui/icons-material/Block';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { historyViewPermission } from '@ansible/backstage-rhaap-common/permissions';
 import { rootRouteRef } from '../../routes';
@@ -44,13 +43,13 @@ import {
   useNotifications,
 } from '../notifications';
 
-const headerStyles = makeStyles(theme => ({
+const headerStyles = makeStyles((theme: Theme) => ({
   header_title_color: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
   },
   header_subtitle: {
     display: 'inline-block',
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
     maxWidth: '75ch',
     marginTop: '8px',

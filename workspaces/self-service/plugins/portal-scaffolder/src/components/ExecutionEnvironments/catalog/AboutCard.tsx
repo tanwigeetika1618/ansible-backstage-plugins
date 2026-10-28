@@ -1,23 +1,23 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Divider,
-  IconButton,
-  Button,
-  Link,
-  Tooltip,
-} from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
-import EditIcon from '@material-ui/icons/Edit';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import EditIcon from '@mui/icons-material/Edit';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useState } from 'react';
 import { Entity } from '@backstage/catalog-model';
 import { getEntityEEDefinitionUrl } from './helpers';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   tagButton: {
     borderRadius: 8,
     borderColor: '#D3D3D3',
@@ -250,7 +250,7 @@ export const AboutCard: React.FC<AboutCardProps> = ({
                 </Link>
               </Box>
             ) : (
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="text.secondary">
                 —
               </Typography>
             )}
@@ -279,7 +279,7 @@ export const AboutCard: React.FC<AboutCardProps> = ({
             ) : (
               <Typography
                 className={classes.aboutCardValue}
-                color="textSecondary"
+                color="text.secondary"
               >
                 No tags
               </Typography>

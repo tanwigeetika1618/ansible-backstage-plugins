@@ -1,5 +1,8 @@
-import { Box, Card, Typography, CircularProgress } from '@material-ui/core';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import { MarkdownContent } from '@backstage/core-components';
 
 import { useCollectionsStyles } from '../CollectionsCatalog/styles';
@@ -30,7 +33,7 @@ export const RepositoryReadmeCard = ({
 
     return (
       <Box className={classes.readmeEmpty}>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="text.secondary">
           Readme Not Available
         </Typography>
       </Box>

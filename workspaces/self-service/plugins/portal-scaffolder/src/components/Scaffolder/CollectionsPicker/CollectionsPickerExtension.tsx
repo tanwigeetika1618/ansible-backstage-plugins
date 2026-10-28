@@ -3,20 +3,19 @@ import {
   FieldExtensionComponentProps,
   scaffolderApiRef,
 } from '@backstage/plugin-scaffolder-react';
-import {
-  Button,
-  TextField,
-  Typography,
-  Box,
-  Chip,
-  Card,
-  CardContent,
-  CircularProgress,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Autocomplete from '@mui/material/Autocomplete';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import { CollectionItem } from './types';
 import { useApi } from '@backstage/core-plugin-api';
 import { rhAapAuthApiRef } from '@ansible/aap-app-auth';
@@ -38,7 +37,7 @@ type VersionOption = {
   label?: string;
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontSize: '1.2rem',
     fontWeight: 500,
@@ -508,7 +507,7 @@ export const CollectionsPickerExtension = ({
                 ? option
                 : option.name || option.label || option.version || ''
             }
-            getOptionSelected={(option, value) => {
+            isOptionEqualToValue={(option, value) => {
               if (value === null) {
                 return false;
               }

@@ -1,18 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from '@mui/icons-material/Person';
 import { TemplateEntityV1beta3 } from '@backstage/plugin-scaffolder-common';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Chip,
-  Divider,
-  Link,
-  Typography,
-  useTheme,
-} from '@material-ui/core';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 import { FavoriteEntity } from '@backstage/plugin-catalog-react';
 import { useRouteRef } from '@backstage/core-plugin-api';
 import { usePermission } from '@backstage/plugin-permission-react';
@@ -105,7 +103,7 @@ export function WizardCard({
                 component="span"
                 style={{
                   color:
-                    theme.palette.type === 'light'
+                    theme.palette.mode === 'light'
                       ? '#181818'
                       : 'rgba(255, 255, 255, 0.70)',
                   fontSize: '14px',

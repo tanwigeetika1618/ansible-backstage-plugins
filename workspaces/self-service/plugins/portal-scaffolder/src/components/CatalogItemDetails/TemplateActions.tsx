@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router';
-import { Button } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SendIcon from '@material-ui/icons/Send';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 
 import { useRouteRef } from '@backstage/core-plugin-api';
 import { catalogEntityDeletePermission } from '@backstage/plugin-catalog-common/alpha';

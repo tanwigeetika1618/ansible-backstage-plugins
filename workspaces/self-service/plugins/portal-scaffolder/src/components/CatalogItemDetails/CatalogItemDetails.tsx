@@ -2,30 +2,29 @@ import { Entity } from '@backstage/catalog-model';
 import { Content, Header, Page } from '@backstage/core-components';
 import { useApi, useRouteRef } from '@backstage/core-plugin-api';
 import { catalogApiRef, EntityProvider } from '@backstage/plugin-catalog-react';
-import {
-  Box,
-  Card,
-  Chip,
-  CircularProgress,
-  Grid,
-  Link,
-  makeStyles,
-  Typography,
-  useTheme,
-} from '@material-ui/core';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { rootRouteRef } from '../../routes';
 import { UnregisterEntityDialog } from '../UnregisterEntityDialog';
 import { TemplateActions } from './TemplateActions';
 
-const headerStyles = makeStyles(theme => ({
+const headerStyles = makeStyles((theme: Theme) => ({
   header_title_color: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
   },
   header_subtitle: {
     display: 'inline-block',
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
+    color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
     maxWidth: '75ch',
     marginTop: '8px',
@@ -205,7 +204,7 @@ export const CatalogItemsDetails = () => {
                               style={{
                                 fontSize: '14px',
                                 color:
-                                  theme.palette.type === 'light'
+                                  theme.palette.mode === 'light'
                                     ? '#181818'
                                     : 'rgba(255, 255, 255, 0.70)',
                                 marginBottom: '14px',
@@ -222,7 +221,7 @@ export const CatalogItemsDetails = () => {
                               style={{
                                 fontSize: '14px',
                                 color:
-                                  theme.palette.type === 'light'
+                                  theme.palette.mode === 'light'
                                     ? '#181818'
                                     : 'rgba(255, 255, 255, 0.70)',
                                 marginBottom: '14px',
@@ -241,7 +240,7 @@ export const CatalogItemsDetails = () => {
                               style={{
                                 fontSize: '14px',
                                 color:
-                                  theme.palette.type === 'light'
+                                  theme.palette.mode === 'light'
                                     ? '#181818'
                                     : 'rgba(255, 255, 255, 0.70)',
                                 marginBottom: '14px',
@@ -262,7 +261,7 @@ export const CatalogItemsDetails = () => {
                               style={{
                                 fontSize: '14px',
                                 color:
-                                  theme.palette.type === 'light'
+                                  theme.palette.mode === 'light'
                                     ? '#181818'
                                     : 'rgba(255, 255, 255, 0.70)',
                                 marginBottom: '14px',

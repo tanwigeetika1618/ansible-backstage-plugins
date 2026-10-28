@@ -2,8 +2,11 @@ import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useSignal } from '@backstage/plugin-signals-react';
 import { useNavigate } from 'react-router';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { Button, Snackbar, Tooltip, Typography } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { Content, Page } from '@backstage/core-components';
 import { useApi, useRouteRef } from '@backstage/core-plugin-api';
 import {

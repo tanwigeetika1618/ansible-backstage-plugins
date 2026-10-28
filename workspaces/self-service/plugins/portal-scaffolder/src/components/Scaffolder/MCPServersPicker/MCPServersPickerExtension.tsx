@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
-import { Typography, Box, Paper, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import InfoIcon from '@material-ui/icons/Info';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import CloudIcon from '@material-ui/icons/Cloud';
-import StorageIcon from '@material-ui/icons/Storage';
-import DnsIcon from '@material-ui/icons/Dns';
-import CodeIcon from '@material-ui/icons/Code';
-import ExtensionIcon from '@material-ui/icons/Extension';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import InfoIcon from '@mui/icons-material/Info';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import CloudIcon from '@mui/icons-material/Cloud';
+import StorageIcon from '@mui/icons-material/Storage';
+import DnsIcon from '@mui/icons-material/Dns';
+import CodeIcon from '@mui/icons-material/Code';
+import ExtensionIcon from '@mui/icons-material/Extension';
 import type { ComponentType } from 'react';
 
 type IconComponent = ComponentType<{ className?: string }>;
@@ -52,7 +56,7 @@ const getIconForEnum = (enumName: string): IconComponent => {
   return ExtensionIcon;
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontSize: '1.2rem',
     fontWeight: 500,
@@ -189,7 +193,9 @@ export const MCPServersPickerExtension = ({
                   }
                 }}
                 aria-pressed={isSelected}
-                aria-label={`${isSelected ? 'Deselect' : 'Select'} ${displayName}`}
+                aria-label={`${
+                  isSelected ? 'Deselect' : 'Select'
+                } ${displayName}`}
               >
                 <Box className={classes.cardContent}>
                   <Box

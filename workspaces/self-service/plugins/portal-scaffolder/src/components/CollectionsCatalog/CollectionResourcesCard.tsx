@@ -1,11 +1,15 @@
-import { Box, Card, CardContent, Typography, Link } from '@material-ui/core';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
-import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
-import LinkIcon from '@material-ui/icons/Link';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import BugReportOutlinedIcon from '@material-ui/icons/BugReportOutlined';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import CodeIcon from '@material-ui/icons/Code';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import LinkIcon from '@mui/icons-material/Link';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import BugReportOutlinedIcon from '@mui/icons-material/BugReportOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import CodeIcon from '@mui/icons-material/Code';
 
 import { CollectionResourcesCardProps } from './types';
 import { useCollectionsStyles } from './styles';

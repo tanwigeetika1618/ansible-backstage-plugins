@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 import { Progress } from '@backstage/core-components';
-import {
-  Box,
-  Checkbox,
-  CircularProgress,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
-} from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import {
   CatalogFilterLayout,
   EntityKindFilter,
@@ -305,7 +303,7 @@ const CollectionsCards = ({
   if ((showNoFilterMatches || showNoStarredOnPage) && !pageLoading) {
     return (
       <Box className={classes.cardsContainer}>
-        <Typography variant="body1" color="textSecondary" component="p">
+        <Typography variant="body1" color="text.secondary" component="p">
           {showNoStarredOnPage
             ? 'No starred collections on this page. Browse other pages to find your starred collections.'
             : 'No collections match your search or filters.'}

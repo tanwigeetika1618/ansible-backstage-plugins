@@ -1,26 +1,26 @@
 import { useState, useEffect, useCallback, useRef, ChangeEvent } from 'react';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import {
   FieldExtensionComponentProps,
   useTemplateSecrets,
 } from '@backstage/plugin-scaffolder-react';
 import { scmAuthApiRef } from '@backstage/integration-react';
 import { useApi } from '@backstage/core-plugin-api';
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormHelperText,
-  CircularProgress,
-  Box,
-  Typography,
-  Chip,
-  TextField,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Alert } from '@material-ui/lab';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import type { Theme } from '@mui/material/styles';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import { useFieldValidation } from '../../CreateTask/FieldValidationContext';
 
 type ProviderType = 'github' | 'gitlab';
@@ -57,7 +57,7 @@ interface OrgItem {
   displayName: string;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
     minWidth: 200,
     width: '100%',
@@ -398,8 +398,8 @@ export const ScmSelectorExtension = ({
   );
 
   const handleChange = useCallback(
-    async (event: ChangeEvent<{ value: unknown }>) => {
-      const value = event.target.value as string;
+    async (event: SelectChangeEvent<string>) => {
+      const value = event.target.value;
       const config = getProviderConfig(value);
       onChange({
         provider: value,
@@ -423,11 +423,11 @@ export const ScmSelectorExtension = ({
   );
 
   const handleOrgChange = useCallback(
-    (event: ChangeEvent<{ value: unknown }>) => {
+    (event: SelectChangeEvent<string>) => {
       onChange({
         provider: selectedProvider,
         providerLabel,
-        org: event.target.value as string,
+        org: event.target.value,
         repoName: '',
         repoExists: false,
       });
@@ -500,7 +500,9 @@ export const ScmSelectorExtension = ({
         let response: Response;
         if (providerType === 'github') {
           response = await fetch(
-            `${apiBase}/repos/${encodeURIComponent(selectedOrg)}/${encodeURIComponent(trimmed)}`,
+            `${apiBase}/repos/${encodeURIComponent(
+              selectedOrg,
+            )}/${encodeURIComponent(trimmed)}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -588,7 +590,7 @@ export const ScmSelectorExtension = ({
       return (
         <Box className={classes.authStatus}>
           <CircularProgress size={14} />
-          <Typography className={classes.statusText} color="textSecondary">
+          <Typography className={classes.statusText} color="text.secondary">
             Authenticating...
           </Typography>
         </Box>

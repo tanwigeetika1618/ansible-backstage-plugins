@@ -1,16 +1,14 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Divider,
-  IconButton,
-  Button,
-  Link,
-  Tooltip,
-} from '@material-ui/core';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import { CollectionAboutCardProps } from './types';
 import { useCollectionsStyles } from './styles';
@@ -38,7 +36,7 @@ export const CollectionAboutCard = ({
   const authors: string[] = Array.isArray(rawAuthors)
     ? rawAuthors
         .map((a: unknown) =>
-          typeof a === 'string' ? a : ((a as { name?: string })?.name ?? ''),
+          typeof a === 'string' ? a : (a as { name?: string })?.name ?? '',
         )
         .filter(Boolean)
     : [];
@@ -53,7 +51,7 @@ export const CollectionAboutCard = ({
   const tags: string[] = Array.isArray(rawTags)
     ? rawTags
         .map((t: unknown) =>
-          typeof t === 'string' ? t : ((t as { name?: string })?.name ?? ''),
+          typeof t === 'string' ? t : (t as { name?: string })?.name ?? '',
         )
         .filter(Boolean)
     : [];
@@ -175,7 +173,7 @@ export const CollectionAboutCard = ({
           ) : (
             <Typography
               className={classes.aboutCardValue}
-              color="textSecondary"
+              color="text.secondary"
             >
               No tags
             </Typography>
