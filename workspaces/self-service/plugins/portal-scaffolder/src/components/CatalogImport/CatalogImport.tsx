@@ -1,34 +1,45 @@
 import { Content, Header, InfoCard, Page } from '@backstage/core-components';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { ImportStepper } from '@backstage/plugin-catalog-import';
 
-const headerStyles = makeStyles(theme => ({
-  header_title_color: {
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
-  },
-  header_subtitle: {
-    display: 'inline-block',
-    color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
-    opacity: 0.8,
-    maxWidth: '75ch',
-    marginTop: '8px',
-    fontWeight: 500,
-    lineHeight: 1.57,
-  },
-}));
-
 export const CatalogImport = () => {
-  const classes = headerStyles();
   return (
     <Page themeId="tools">
       <Header
         pageTitleOverride="Register Components"
-        title={<span className={classes.header_title_color}>Add Template</span>}
+        title={
+          <Typography
+            component="span"
+            sx={theme => ({
+              color:
+                theme.palette.mode === 'light'
+                  ? 'rgba(0, 0, 0, 0.87)'
+                  : '#ffffff',
+            })}
+          >
+            Add Template
+          </Typography>
+        }
         subtitle={
-          <span className={classes.header_subtitle}>
+          <Typography
+            component="span"
+            sx={theme => ({
+              display: 'inline-block',
+              color:
+                theme.palette.mode === 'light'
+                  ? 'rgba(0, 0, 0, 0.87)'
+                  : '#ffffff',
+              opacity: 0.8,
+              maxWidth: '75ch',
+              marginTop: '8px',
+              fontWeight: 500,
+              lineHeight: 1.57,
+            })}
+          >
             Add a new template to the catalog for users in your AAP organization
             to use.
-          </span>
+          </Typography>
         }
         style={{ background: 'inherit' }}
       />

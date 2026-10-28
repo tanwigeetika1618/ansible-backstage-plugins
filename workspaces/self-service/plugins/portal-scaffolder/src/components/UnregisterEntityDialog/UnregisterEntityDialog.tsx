@@ -2,21 +2,18 @@ import type { Entity } from '@backstage/catalog-model';
 import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import { alertApiRef, configApiRef, useApi } from '@backstage/core-plugin-api';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Alert } from '@material-ui/lab';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useCallback, useState } from 'react';
 import {
   useUnregisterEntityDialogState,
@@ -37,21 +34,6 @@ export type UnregisterEntityDialogProps = Readonly<{
   onClose: () => void;
   entity: Entity;
 }>;
-
-const useStyles = makeStyles(theme => ({
-  content: {
-    overflowWrap: 'break-word',
-  },
-  advancedAccordion: {
-    marginTop: theme.spacing(2),
-    '&::before': {
-      display: 'none',
-    },
-  },
-  advancedDeleteButton: {
-    marginTop: theme.spacing(1),
-  },
-}));
 
 function useDialogHandlers(entity: Entity, onConfirm: () => void) {
   const alertApi = useApi(alertApiRef);
@@ -106,10 +88,8 @@ function AdvancedDeleteSection({
   onDelete: () => void;
   busyAction: BusyAction;
 }>) {
-  const classes = useStyles();
-
   return (
-    <Accordion className={classes.advancedAccordion}>
+    <Accordion sx={{ mt: 2, '&::before': { display: 'none' } }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle2">{triggerTitle}</Typography>
       </AccordionSummary>
@@ -117,7 +97,7 @@ function AdvancedDeleteSection({
         <div>
           <Typography variant="body2">{description}</Typography>
           <Button
-            className={classes.advancedDeleteButton}
+            sx={{ mt: 1 }}
             variant="contained"
             color="secondary"
             disabled={busyAction !== null}
@@ -313,7 +293,6 @@ function DialogContents({
   onConfirm: () => void;
   onClose: () => void;
 }>) {
-  const classes = useStyles();
   const configApi = useApi(configApiRef);
   const appTitle = configApi.getOptionalString('app.title') ?? 'Backstage';
   const { state, busyAction, onUnregister, onDelete } = useDialogHandlers(
@@ -333,7 +312,7 @@ function DialogContents({
       <DialogTitle>
         Are you sure you want to unregister this entity?
       </DialogTitle>
-      <DialogContent className={classes.content}>{body}</DialogContent>
+      <DialogContent sx={{ overflowWrap: 'break-word' }}>{body}</DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel

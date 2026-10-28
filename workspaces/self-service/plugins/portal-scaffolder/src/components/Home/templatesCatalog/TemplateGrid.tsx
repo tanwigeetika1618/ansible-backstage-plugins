@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { Typography } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
 import { ItemCardGrid } from '@backstage/core-components';
 import { useEntityList } from '@backstage/plugin-catalog-react';
 import { TemplateEntityV1beta3 } from '@backstage/plugin-scaffolder-common';

@@ -1,68 +1,50 @@
-import { Box, Card, CardContent, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import { MarkdownContent } from '@backstage/core-components';
 
-const useStyles = makeStyles(() => ({
-  scrollArea: {
-    maxHeight: '58vh',
-    overflowY: 'auto',
-    paddingRight: 8,
-
-    /* Optional prettier scrollbar */
-    '&::-webkit-scrollbar': {
-      width: '6px',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#bfbfbf',
-      borderRadius: '4px',
-    },
+const scrollAreaSx = {
+  maxHeight: '58vh',
+  overflowY: 'auto',
+  paddingRight: 1,
+  '&::-webkit-scrollbar': {
+    width: '6px',
   },
-  markdownScroll: {
-    maxHeight: '60vh',
-    overflowY: 'auto',
-    minHeight: 0,
-    paddingRight: 8,
-
-    '&::-webkit-scrollbar': {
-      width: 8,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#bfbfbf',
-      borderRadius: 4,
-    },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#bfbfbf',
+    borderRadius: '4px',
   },
-}));
+} as const;
 
 interface ReadmeCardProps {
   readmeContent: string;
 }
 
 export const ReadmeCard: React.FC<ReadmeCardProps> = ({ readmeContent }) => {
-  const classes = useStyles();
-
   return (
-    <Box flex={1} style={{ minHeight: 0 }}>
+    <Box flex={1} sx={{ minHeight: 0 }}>
       <Card
         variant="outlined"
-        style={{ borderRadius: 16, borderColor: '#D3D3D3' }}
+        sx={{ borderRadius: '16px', borderColor: '#D3D3D3' }}
       >
-        <CardContent style={{ flex: 1, minHeight: 0 }}>
+        <CardContent sx={{ flex: 1, minHeight: 0 }}>
           <Typography
             variant="h6"
-            style={{
+            sx={{
               fontWeight: 'bold',
               fontSize: '1.5rem',
-              marginBottom: 12,
+              marginBottom: 1.5,
             }}
           >
             README
           </Typography>
-          <div className={classes.scrollArea}>
+          <Box sx={scrollAreaSx}>
             <MarkdownContent
-              className={classes.markdownScroll}
+              className="readme-markdown-scroll"
               content={readmeContent}
             />
-          </div>
+          </Box>
         </CardContent>
       </Card>
     </Box>

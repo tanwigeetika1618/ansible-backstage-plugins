@@ -3,35 +3,18 @@ import {
   catalogApiRef,
   useStarredEntities,
 } from '@backstage/plugin-catalog-react';
-import { Typography, makeStyles, withStyles } from '@material-ui/core';
-import Star from '@material-ui/icons/Star';
+import Typography from '@mui/material/Typography';
+import Star from '@mui/icons-material/Star';
+import { styled } from '@mui/material/styles';
 import useAsync from 'react-use/esm/useAsync';
 import { InfoCard, Link } from '@backstage/core-components';
 import { rootRouteRef } from '../../../routes';
 
-const useStyles = makeStyles(theme => ({
-  flex: {
-    display: 'flex',
-  },
-  star_icon: {
-    float: 'left',
-    marginRight: '10px',
-  },
-  kind: {
-    color: theme.palette.type === 'light' ? '#757575' : 'currentColor',
-  },
-}));
-
-// type Props = React.ComponentType<{}> & Element
-
-export const YellowStar: React.ComponentType = withStyles({
-  root: {
-    color: '#f3ba37',
-  },
-})(Star);
+export const YellowStar: React.ComponentType = styled(Star)({
+  color: '#f3ba37',
+});
 
 export const Favourites = () => {
-  const classes = useStyles();
   const catalogApi = useApi(catalogApiRef);
   const rootLink = useRouteRef(rootRouteRef);
   const {
@@ -61,8 +44,11 @@ export const Favourites = () => {
         key={entity.metadata.uid ?? entity.metadata.name}
         style={{ marginBottom: '22px' }}
       >
-        <Typography variant="body1" className={classes.flex}>
-          <Typography component="span" className={classes.star_icon}>
+        <Typography variant="body1" sx={{ display: 'flex' }}>
+          <Typography
+            component="span"
+            sx={{ float: 'left', marginRight: '10px' }}
+          >
             <YellowStar />
           </Typography>
           <Typography component="span">
@@ -81,7 +67,12 @@ export const Favourites = () => {
             <Typography
               variant="subtitle1"
               component="span"
-              className={classes.kind}
+              sx={theme => ({
+                color:
+                  theme.palette.mode === 'light'
+                    ? '#757575'
+                    : 'currentColor',
+              })}
             >
               {entity.kind}
             </Typography>
@@ -100,7 +91,13 @@ export const Favourites = () => {
           {getStarredList()}
         </ul>
       ) : (
-        <Typography className={classes.kind} data-testid="no-starred-list">
+        <Typography
+          sx={theme => ({
+            color:
+              theme.palette.mode === 'light' ? '#757575' : 'currentColor',
+          })}
+          data-testid="no-starred-list"
+        >
           Click the star beside an Ansible entity name to add it to this list!
         </Typography>
       )}

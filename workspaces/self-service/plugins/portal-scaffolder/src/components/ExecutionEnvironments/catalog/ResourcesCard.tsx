@@ -1,51 +1,54 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Link,
-  Divider,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import type { SystemStyleObject, Theme } from '@mui/system';
 
-const useStyles = makeStyles(theme => ({
-  linkRow: {
-    display: 'flex',
-    alignItems: 'center',
-    gridGap: 8,
-    marginBottom: 12,
-    '&:last-child': {
-      marginBottom: 0,
-    },
+const aboutCardSx: SystemStyleObject<Theme> = {
+  borderRadius: '12px',
+  border: theme => `1px solid ${(theme as Theme).palette.divider}`,
+};
+
+const aboutCardContentSx: SystemStyleObject<Theme> = {
+  padding: theme => (theme as Theme).spacing(2.5),
+};
+
+const aboutCardHeaderSx: SystemStyleObject<Theme> = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  mb: 2,
+};
+
+const aboutCardTitleSx = {
+  fontWeight: 600,
+  fontSize: '1.25rem',
+} as const;
+
+const aboutCardDividerSx: SystemStyleObject<Theme> = {
+  mx: -2.5,
+  my: 2,
+};
+
+const linkRowSx: SystemStyleObject<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 1,
+  mb: 1.5,
+  '&:last-child': {
+    mb: 0,
   },
-  link: {
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    gridGap: 8,
-  },
-  aboutCard: {
-    borderRadius: 12,
-    border: `1px solid ${theme.palette.divider}`,
-  },
-  aboutCardContent: {
-    padding: theme.spacing(2.5),
-  },
-  aboutCardHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2),
-  },
-  aboutCardTitle: {
-    fontWeight: 600,
-    fontSize: '1.25rem',
-  },
-  aboutCardDivider: {
-    margin: theme.spacing(2, -2.5),
-  },
-}));
+};
+
+const linkSx = {
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  gap: 1,
+} as const;
 
 interface ResourcesCardProps {}
 
@@ -53,19 +56,17 @@ interface ResourcesCardProps {}
  * Card with View in source and readme.md links.
  */
 export const ResourcesCard: React.FC<ResourcesCardProps> = () => {
-  const classes = useStyles();
-
   return (
-    <Card className={classes.aboutCard} variant="outlined">
-      <CardContent className={classes.aboutCardContent}>
-        <Box className={classes.aboutCardHeader}>
-          <Typography className={classes.aboutCardTitle}>Resources</Typography>
+    <Card sx={aboutCardSx} variant="outlined">
+      <CardContent sx={aboutCardContentSx}>
+        <Box sx={aboutCardHeaderSx}>
+          <Typography sx={aboutCardTitleSx}>Resources</Typography>
         </Box>
 
-        <Divider className={classes.aboutCardDivider} />
+        <Divider sx={aboutCardDividerSx} />
 
-        <Box style={{ marginLeft: 10 }}>
-          <Box className={classes.linkRow}>
+        <Box sx={{ marginLeft: '10px' }}>
+          <Box sx={linkRowSx}>
             <OpenInNewIcon fontSize="small" color="primary" />
             <Link
               href="https://red.ht/ee_assembly-intro-to-builder"
@@ -73,12 +74,12 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = () => {
               rel="noopener noreferrer"
               variant="body2"
               color="primary"
-              className={classes.link}
+              sx={linkSx}
             >
               Introduction to automation execution environments
             </Link>
           </Box>
-          <Box className={classes.linkRow}>
+          <Box sx={linkRowSx}>
             <OpenInNewIcon fontSize="small" color="primary" />
             <Link
               href="https://red.ht/self-service-create-ee-definitions"
@@ -86,13 +87,13 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = () => {
               rel="noopener noreferrer"
               variant="body2"
               color="primary"
-              className={classes.link}
+              sx={linkSx}
             >
               Create execution environment definitions in self-service
               automation portal
             </Link>
           </Box>
-          <Box className={classes.linkRow}>
+          <Box sx={linkRowSx}>
             <OpenInNewIcon fontSize="small" color="primary" />
             <Link
               href="https://red.ht/ee_assembly-using-builder"
@@ -100,7 +101,7 @@ export const ResourcesCard: React.FC<ResourcesCardProps> = () => {
               rel="noopener noreferrer"
               variant="body2"
               color="primary"
-              className={classes.link}
+              sx={linkSx}
             >
               Build execution environment images with Ansible Builder
             </Link>

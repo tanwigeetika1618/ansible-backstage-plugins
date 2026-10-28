@@ -1,27 +1,26 @@
-import { Box, Card, CardContent, Typography, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import GetAppIcon from '@mui/icons-material/GetApp';
 
-const useStyles = makeStyles(() => ({
-  linkText: {
-    color: 'inherit',
-    fontWeight: 500,
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    '&:hover': {
-      textDecoration: 'underline',
-      transform: 'scale(1.03)',
-    },
+const linkTextSx = {
+  color: 'inherit',
+  fontWeight: 500,
+  cursor: 'pointer',
+  transition: 'all 0.2s ease',
+  '&:hover': {
+    textDecoration: 'underline',
+    transform: 'scale(1.03)',
   },
-}));
+} as const;
 
 interface LinksCardProps {
   onDownloadArchive: () => void;
 }
 
 export const LinksCard: React.FC<LinksCardProps> = ({ onDownloadArchive }) => {
-  const classes = useStyles();
-
   const links = [
     {
       icon: <GetAppIcon />,
@@ -33,12 +32,12 @@ export const LinksCard: React.FC<LinksCardProps> = ({ onDownloadArchive }) => {
   return (
     <Card
       variant="outlined"
-      style={{ borderRadius: 16, borderColor: '#D3D3D3' }}
+      sx={{ borderRadius: '16px', borderColor: '#D3D3D3' }}
     >
       <CardContent>
         <Typography
           variant="h6"
-          style={{
+          sx={{
             fontWeight: 'bold',
             fontSize: '1.5rem',
             margin: '6px 0 13px 10px',
@@ -46,23 +45,23 @@ export const LinksCard: React.FC<LinksCardProps> = ({ onDownloadArchive }) => {
         >
           Links
         </Typography>
-        <Divider style={{ margin: '0 -16px 12px' }} />
+        <Divider sx={{ margin: '0 -16px 12px' }} />
 
         {links.map(item => (
           <Box
             key={item.text}
             display="flex"
             alignItems="center"
-            gridGap={12}
             onClick={item.onClick}
-            style={{
-              marginLeft: 10,
-              marginBottom: 10,
+            sx={{
+              gap: 1.5,
+              marginLeft: '10px',
+              marginBottom: '10px',
               cursor: 'pointer',
             }}
           >
             {item.icon}
-            <Typography variant="body1" className={classes.linkText}>
+            <Typography variant="body1" sx={linkTextSx}>
               {item.text}
             </Typography>
           </Box>

@@ -1,12 +1,9 @@
-import {
-  Typography,
-  makeStyles,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRouteRef } from '@backstage/core-plugin-api';
@@ -28,26 +25,27 @@ import { TemplateEntityV1beta3 } from '@backstage/plugin-scaffolder-common';
 import { rootRouteRef } from '../../../routes';
 import { TagFilterPicker } from '../../utils/TagFilterPicker';
 
-const useStyles = makeStyles(theme => ({
-  headerRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '16px',
-  },
-  description: {
-    color: theme.palette.text.secondary,
-    fontSize: 16,
-    lineHeight: 1.6,
-    flex: 1,
-  },
-  layoutContainer: {
-    borderRadius: theme.shape.borderRadius,
-    border: `1px solid ${theme.palette.divider}`,
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+const headerRowSx = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  mb: 2,
+} as const;
+
+const descriptionSx = {
+  color: 'text.secondary',
+  fontSize: 16,
+  lineHeight: 1.6,
+  flex: 1,
+} as const;
+
+const layoutContainerSx = {
+  borderRadius: 1,
+  border: '1px solid',
+  borderColor: 'divider',
+  p: 2,
+  backgroundColor: 'background.paper',
+} as const;
 
 const EETagPicker = () => {
   const { backendEntities, filters, updateFilters } = useEntityList();
@@ -103,7 +101,6 @@ const ExecutionEnvironmentTypeFilter = () => {
 };
 
 export const CreateContent = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
   const rootLink = useRouteRef(rootRouteRef);
   const { allowed } = usePermission({
@@ -127,8 +124,8 @@ export const CreateContent = () => {
 
   return (
     <div data-testid="create-content">
-      <Box className={classes.headerRow}>
-        <Typography variant="body1" className={classes.description}>
+      <Box sx={headerRowSx}>
+        <Typography variant="body1" sx={descriptionSx}>
           Create an Execution Environment (EE) definition to ensure your
           playbooks run the same way, every time. Choose a recommended preset or
           start from scratch for full control. After saving your definition,
@@ -158,7 +155,6 @@ export const CreateContent = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              getContentAnchorEl={null}
               MenuListProps={{ autoFocusItem: false }}
             >
               <MenuItem
@@ -173,7 +169,7 @@ export const CreateContent = () => {
       </Box>
       <EntityListProvider>
         <ExecutionEnvironmentTypeFilter />
-        <Box className={classes.layoutContainer}>
+        <Box sx={layoutContainerSx}>
           <CatalogFilterLayout>
             <CatalogFilterLayout.Filters>
               <div data-testid="search-bar-container">

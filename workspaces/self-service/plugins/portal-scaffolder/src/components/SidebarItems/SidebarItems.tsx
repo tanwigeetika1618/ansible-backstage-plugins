@@ -2,11 +2,11 @@ import type { BasicPermission } from '@backstage/plugin-permission-common';
 import { usePermission } from '@backstage/plugin-permission-react';
 import { configApiRef, useApi, useRouteRef } from '@backstage/core-plugin-api';
 import { SidebarItem } from '@backstage/core-components';
-import BuildIcon from '@material-ui/icons/Build';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import HistoryIcon from '@material-ui/icons/History';
+import BuildIcon from '@mui/icons-material/Build';
+import HomeIcon from '@mui/icons-material/Home';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import HistoryIcon from '@mui/icons-material/History';
 import {
   executionEnvironmentsViewPermission,
   collectionsViewPermission,

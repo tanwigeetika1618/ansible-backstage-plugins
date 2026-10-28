@@ -1,51 +1,59 @@
-import { Box, Card, CardContent, Typography, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import type { SystemStyleObject, Theme } from '@mui/system';
 import type { ParsedEEDefinition } from '../../../utils/eeDefinitionUtils';
 
-const useStyles = makeStyles(theme => ({
-  value: {
-    marginBottom: 12,
-  },
-  aboutCard: {
-    borderRadius: 12,
-    border: `1px solid ${theme.palette.divider}`,
-  },
-  aboutCardContent: {
-    padding: theme.spacing(2.5),
-  },
-  aboutCardHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2),
-  },
-  aboutCardTitle: {
-    fontWeight: 600,
-    fontSize: '1.25rem',
-  },
-  aboutCardDescription: {
-    color: theme.palette.text.secondary,
-    fontSize: '0.875rem',
-    marginBottom: theme.spacing(2),
-  },
-  aboutCardDivider: {
-    margin: theme.spacing(2, -2.5),
-  },
-  aboutCardLabel: {
-    color: theme.palette.text.secondary,
-    fontWeight: 600,
-    fontSize: '0.75rem',
-    textTransform: 'uppercase' as const,
-    marginBottom: theme.spacing(0.5),
-  },
-  aboutCardSection: {
-    marginTop: theme.spacing(2),
-  },
-  aboutCardValue: {
-    fontSize: '0.875rem',
-    wordBreak: 'break-word' as const,
-  },
-}));
+const aboutCardSx: SystemStyleObject<Theme> = {
+  borderRadius: '12px',
+  border: theme => `1px solid ${(theme as Theme).palette.divider}`,
+};
+
+const aboutCardContentSx: SystemStyleObject<Theme> = {
+  padding: theme => (theme as Theme).spacing(2.5),
+};
+
+const aboutCardHeaderSx: SystemStyleObject<Theme> = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  mb: 2,
+};
+
+const aboutCardTitleSx = {
+  fontWeight: 600,
+  fontSize: '1.25rem',
+} as const;
+
+const aboutCardDescriptionSx: SystemStyleObject<Theme> = {
+  color: 'text.secondary',
+  fontSize: '0.875rem',
+  mb: 2,
+};
+
+const aboutCardDividerSx: SystemStyleObject<Theme> = {
+  mx: -2.5,
+  my: 2,
+};
+
+const aboutCardLabelSx: SystemStyleObject<Theme> = {
+  color: 'text.secondary',
+  fontWeight: 600,
+  fontSize: '0.75rem',
+  textTransform: 'uppercase',
+  mb: 0.5,
+};
+
+const aboutCardSectionSx: SystemStyleObject<Theme> = {
+  mt: 2,
+};
+
+const aboutCardValueSx = {
+  fontSize: '0.875rem',
+  wordBreak: 'break-word',
+} as const;
 
 function maskEEBuilderTokens(value: string): string {
   return value.replace(/\$\{[^}]+\}/g, 'token');
@@ -91,8 +99,6 @@ interface DefinedContentCardProps {
 export const DefinedContentCard: React.FC<DefinedContentCardProps> = ({
   parsedDefinition,
 }) => {
-  const classes = useStyles();
-
   const collections =
     parsedDefinition?.collections && parsedDefinition.collections.length > 0
       ? parsedDefinition.collections
@@ -109,26 +115,24 @@ export const DefinedContentCard: React.FC<DefinedContentCardProps> = ({
       : null;
 
   return (
-    <Card className={classes.aboutCard} variant="outlined">
-      <CardContent className={classes.aboutCardContent}>
-        <Box className={classes.aboutCardHeader}>
-          <Typography className={classes.aboutCardTitle}>
-            Defined Content
-          </Typography>
+    <Card sx={aboutCardSx} variant="outlined">
+      <CardContent sx={aboutCardContentSx}>
+        <Box sx={aboutCardHeaderSx}>
+          <Typography sx={aboutCardTitleSx}>Defined Content</Typography>
         </Box>
 
-        <Divider className={classes.aboutCardDivider} />
+        <Divider sx={aboutCardDividerSx} />
 
-        <Typography className={classes.aboutCardDescription}>
+        <Typography sx={aboutCardDescriptionSx}>
           Shows explicitly added collections, python requirements, and system
           packages only.
         </Typography>
 
-        <Box className={classes.aboutCardSection}>
-          <Typography className={classes.aboutCardLabel}>
+        <Box sx={aboutCardSectionSx}>
+          <Typography sx={aboutCardLabelSx}>
             Collections ({collections?.length || 0}):
           </Typography>
-          <Box className={classes.value}>
+          <Box sx={{ mb: 1.5 }}>
             {collections && collections.length > 0 ? (
               collections.map(c => (
                 <Typography key={c.name} variant="body2">
@@ -137,39 +141,39 @@ export const DefinedContentCard: React.FC<DefinedContentCardProps> = ({
                 </Typography>
               ))
             ) : (
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="text.secondary">
                 None
               </Typography>
             )}
           </Box>
 
-          <Box className={classes.aboutCardSection}>
-            <Typography className={classes.aboutCardLabel}>
+          <Box sx={aboutCardSectionSx}>
+            <Typography sx={aboutCardLabelSx}>
               Python requirements ({pythonPackages?.length || 0}):
             </Typography>
             {pythonPackages && pythonPackages.length > 0 ? (
               pythonPackages.map(p => (
-                <Typography key={p} className={classes.aboutCardValue}>
+                <Typography key={p} sx={aboutCardValueSx}>
                   {p}
                 </Typography>
               ))
             ) : (
-              <Typography className={classes.aboutCardValue}>None</Typography>
+              <Typography sx={aboutCardValueSx}>None</Typography>
             )}
           </Box>
 
-          <Box className={classes.aboutCardSection}>
-            <Typography className={classes.aboutCardLabel}>
+          <Box sx={aboutCardSectionSx}>
+            <Typography sx={aboutCardLabelSx}>
               System Packages ({systemPackages?.length || 0}):
             </Typography>
             {systemPackages && systemPackages.length > 0 ? (
               systemPackages.map(p => (
-                <Typography key={p} className={classes.aboutCardValue}>
+                <Typography key={p} sx={aboutCardValueSx}>
                   {p}
                 </Typography>
               ))
             ) : (
-              <Typography className={classes.aboutCardValue}>None</Typography>
+              <Typography sx={aboutCardValueSx}>None</Typography>
             )}
           </Box>
         </Box>

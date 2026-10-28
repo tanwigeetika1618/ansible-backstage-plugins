@@ -1,8 +1,9 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Typography, Box, makeStyles } from '@material-ui/core';
-import CategoryOutlinedIcon from '@material-ui/icons/CategoryOutlined';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import CreateComponentIcon from '@mui/icons-material/AddCircleOutline';
 import { Header, Page, HeaderTabs, Content } from '@backstage/core-components';
 import { useRouteRef } from '@backstage/core-plugin-api';
 
@@ -10,27 +11,18 @@ import { rootRouteRef } from '../../routes';
 import { CreateContent } from './create/CreateContent';
 import { EntityCatalogContent } from './catalog/CatalogContent';
 
-const useStyles = makeStyles(() => ({
-  tabContainer: {
-    '& .MuiTab-root': {
-      minWidth: '200px',
-      padding: '12px 40px',
-      fontSize: '16px',
-    },
-  },
-  tabWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  },
-}));
+const tabWithIconSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+} as const;
 
 export const EEHeader = () => {
   const headerTitle = (
     <Typography
       variant="h4"
       component="h1"
-      style={{ fontWeight: 'bold', fontSize: '2rem' }}
+      sx={{ fontWeight: 'bold', fontSize: '2rem' }}
     >
       Execution Environments definition files
     </Typography>
@@ -60,7 +52,6 @@ const getTabIndexFromPath = (pathname: string): number => {
 };
 
 export const EETabs: React.FC = () => {
-  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const rootLink = useRouteRef(rootRouteRef);
@@ -117,7 +108,7 @@ export const EETabs: React.FC = () => {
           tabs.map(({ label, icon }) => ({
             id: label.toLowerCase(),
             label: (
-              <Box className={classes.tabWithIcon}>
+              <Box sx={tabWithIconSx}>
                 {icon}
                 {label}
               </Box>

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { PageHeaderSection } from '../common';
 import type { SyncProgressEntry } from '../common';
 import { TEMPLATE_TOOLTIP, TEMPLATE_DESCRIPTION } from './constants';

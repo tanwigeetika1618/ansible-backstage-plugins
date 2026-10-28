@@ -4,12 +4,10 @@ import {
   FieldExtensionComponentProps,
   useTemplateSecrets,
 } from '@backstage/plugin-scaffolder-react';
-import {
-  TextField,
-  CircularProgress,
-  Typography,
-  Box,
-} from '@material-ui/core';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import { rhAapAuthApiRef } from '@ansible/aap-app-auth';
 

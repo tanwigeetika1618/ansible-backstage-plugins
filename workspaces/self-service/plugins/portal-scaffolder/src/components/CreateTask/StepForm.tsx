@@ -21,20 +21,18 @@ import {
   extractSchemaFromStep,
 } from '@backstage/plugin-scaffolder-react/alpha';
 
-import {
-  Button,
-  Paper,
-  Step,
-  StepContent,
-  StepLabel,
-  Stepper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from '@material-ui/core';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Step from '@mui/material/Step';
+import StepContent from '@mui/material/StepContent';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 import { rhAapAuthApiRef } from '@ansible/aap-app-auth';
 import { formExtraFields } from './formExtraFields';
 import { findUnavailableFields } from './findUnavailableFields';

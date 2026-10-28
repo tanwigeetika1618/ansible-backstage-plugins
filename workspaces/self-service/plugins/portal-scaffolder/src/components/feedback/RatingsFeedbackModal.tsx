@@ -14,29 +14,27 @@
  * limitations under the License.
  */
 import { forwardRef, useState } from 'react';
-import OpenInNew from '@material-ui/icons/OpenInNew';
-import HelpOutline from '@material-ui/icons/HelpOutline';
+import OpenInNew from '@mui/icons-material/OpenInNew';
+import HelpOutline from '@mui/icons-material/HelpOutline';
 import { useAnalytics } from '@backstage/core-plugin-api';
 import { Link } from '@backstage/core-components';
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  IconButton,
-  Popover,
-  Slide,
-  SlideProps,
-  Snackbar,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
-import { Rating } from '@material-ui/lab';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import IconButton from '@mui/material/IconButton';
+import Popover from '@mui/material/Popover';
+import Slide from '@mui/material/Slide';
+import type { SlideProps } from '@mui/material/Slide';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
 
 type IProps = {
   handleClose: () => void;
@@ -68,7 +66,6 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
   };
 
   const sendFeedback = () => {
-    // send custom events to analytics provider
     analytics.captureEvent('feedback', 'sentiment', {
       attributes: {
         type: 'sentiment',
@@ -110,7 +107,7 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
               <IconButton
                 size="small"
                 onClick={handleHelpClick}
-                style={{ padding: '4px' }}
+                sx={{ padding: '4px' }}
                 data-testid="feedback-help-icon"
               >
                 <HelpOutline fontSize="small" />
@@ -129,7 +126,7 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
                 <Typography
                   component="div"
                   id="modal-modal-description"
-                  style={{ marginTop: 2 }}
+                  sx={{ marginTop: '2px' }}
                 >
                   <Typography>
                     How was your experience?{' '}
@@ -142,7 +139,7 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
                       e.stopPropagation();
                       if (newRatings) setRatings(newRatings);
                     }}
-                    style={{ marginTop: '10px' }}
+                    sx={{ marginTop: '10px' }}
                   />
                 </Typography>
               </div>
@@ -168,12 +165,12 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
           </div>
           <FormControl>
             <FormControlLabel
-              style={{ marginTop: '10px' }}
+              sx={{ marginTop: '10px' }}
               aria-required
               control={
                 <Checkbox
                   data-testid="sentiment-checkbox"
-                  style={{ margin: '0 8px' }}
+                  sx={{ margin: '0 8px' }}
                   checked={shareFeedback}
                   onChange={e => setShareFeedback(e.target.checked)}
                   aria-label="I understand that feedback is shared with Red Hat."
@@ -191,7 +188,7 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
               <br /> For more information, please review&nbsp;
               <Link to="https://www.redhat.com/en/about/privacy-policy">
                 Red Hat's Privacy Statement{' '}
-                <OpenInNew fontSize="small" style={{ fontSize: '14px' }} />
+                <OpenInNew fontSize="small" sx={{ fontSize: '14px' }} />
               </Link>
             </div>
 
@@ -233,11 +230,11 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
           <div style={{ padding: '16px', maxWidth: '300px' }}>
             <Typography
               variant="subtitle2"
-              style={{ marginBottom: '8px', fontWeight: 600 }}
+              sx={{ marginBottom: '8px', fontWeight: 600 }}
             >
               Feedback Requirements
             </Typography>
-            <Typography variant="body2" style={{ marginBottom: '12px' }}>
+            <Typography variant="body2" sx={{ marginBottom: '12px' }}>
               To share feedback, please provide:
             </Typography>
             <ul style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
@@ -253,11 +250,11 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
                 </Typography>
               </li>
             </ul>
-            <Typography variant="body2" style={{ marginBottom: '8px' }}>
+            <Typography variant="body2" sx={{ marginBottom: '8px' }}>
               <strong>Note:</strong> Please ensure any ad-blockers are disabled
               to share feedback properly.
             </Typography>
-            <Typography variant="body2" style={{ marginBottom: '8px' }}>
+            <Typography variant="body2" sx={{ marginBottom: '8px' }}>
               For more information about how we use your feedback:
             </Typography>
             <Link
@@ -265,7 +262,7 @@ export default function RatingsFeedbackModal(props: Readonly<IProps>) {
               target="_blank"
             >
               Red Hat Privacy Policy{' '}
-              <OpenInNew fontSize="small" style={{ fontSize: '14px' }} />
+              <OpenInNew fontSize="small" sx={{ fontSize: '14px' }} />
             </Link>
           </div>
         </Popover>

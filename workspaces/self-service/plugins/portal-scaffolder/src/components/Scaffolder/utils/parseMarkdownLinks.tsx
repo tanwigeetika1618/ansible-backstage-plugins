@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Link } from '@material-ui/core';
+import Link from '@mui/material/Link';
 
 /**
  * Parses markdown-style links [text](url) in a string and converts them to Material-UI Link components

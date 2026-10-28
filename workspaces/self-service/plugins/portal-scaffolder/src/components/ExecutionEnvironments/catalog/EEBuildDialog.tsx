@@ -1,23 +1,20 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import {
-  Button,
-  Checkbox,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  InputLabel,
-  Link,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import Link from '@mui/material/Link';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { useNotifications } from '../../notifications';
@@ -53,11 +50,7 @@ function buildTriggeredDescriptionNode(
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  field: {
-    marginBottom: theme.spacing(2),
-  },
-}));
+const fieldSx = { mb: 2 } as const;
 
 export type EEBuildDialogProps = Readonly<{
   open: boolean;
@@ -76,7 +69,6 @@ export function EEBuildDialog({
   scmProvider,
   onClose,
 }: EEBuildDialogProps) {
-  const classes = useStyles();
   const configApi = useApi(configApiRef);
   const eeBuildApi = useApi(eeBuildApiRef);
   const { showNotification } = useNotifications();
@@ -204,14 +196,14 @@ export function EEBuildDialog({
       <DialogContent>
         <Typography
           variant="body2"
-          color="textSecondary"
-          className={classes.field}
+          color="text.secondary"
+          sx={fieldSx}
         >
           Registry and image settings for pushing the image built from{' '}
           <strong>{entity?.metadata?.name ?? 'this definition'}</strong>.
         </Typography>
 
-        <FormControl variant="outlined" fullWidth className={classes.field}>
+        <FormControl variant="outlined" fullWidth sx={fieldSx}>
           <InputLabel id="ee-build-registry-label">Registry</InputLabel>
           <Select
             labelId="ee-build-registry-label"
@@ -233,7 +225,7 @@ export function EEBuildDialog({
 
         {registryType === 'custom' && (
           <TextField
-            className={classes.field}
+            sx={fieldSx}
             fullWidth
             label="Custom registry URL"
             value={customRegistryUrl}
@@ -246,7 +238,7 @@ export function EEBuildDialog({
         )}
 
         <TextField
-          className={classes.field}
+          sx={fieldSx}
           fullWidth
           label="Image name"
           value={imageName}
@@ -258,7 +250,7 @@ export function EEBuildDialog({
         />
 
         <TextField
-          className={classes.field}
+          sx={fieldSx}
           fullWidth
           label="Image tag"
           value={imageTag}
@@ -279,7 +271,7 @@ export function EEBuildDialog({
           }
           label="Verify TLS certificates"
         />
-        <Typography variant="caption" display="block" color="textSecondary">
+        <Typography variant="caption" display="block" color="text.secondary">
           Verify TLS certificates when interacting with container registries.
         </Typography>
       </DialogContent>

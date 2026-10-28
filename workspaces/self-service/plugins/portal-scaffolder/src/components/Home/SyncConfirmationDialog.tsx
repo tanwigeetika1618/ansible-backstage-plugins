@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Typography from '@mui/material/Typography';
 import { formatRelativeTime } from '../../utils/timeUtils';
 
 const options = [
@@ -100,8 +100,8 @@ export const SyncConfirmationDialog = (props: SyncConfirmationDialogProps) => {
                     </span>
                     <Typography
                       variant="caption"
-                      color="textSecondary"
-                      style={{
+                      color="text.secondary"
+                      sx={{
                         fontSize: '0.6rem',
                         fontStyle: 'italic',
                         whiteSpace: 'nowrap',

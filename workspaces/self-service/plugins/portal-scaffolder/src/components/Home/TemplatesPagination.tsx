@@ -1,84 +1,85 @@
-import {
-  Box,
-  IconButton,
-  MenuItem,
-  Select,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import type { SystemStyleObject, Theme } from '@mui/system';
 import { PAGE_SIZE_OPTIONS, resolvePageLimit } from './constants';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(3),
-    paddingTop: theme.spacing(2),
-    borderTop: `1px solid ${theme.palette.divider}`,
-    gap: theme.spacing(2),
-    flexWrap: 'wrap',
+const rootSx: SystemStyleObject<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  mt: 3,
+  pt: 2,
+  borderTop: theme => `1px solid ${(theme as Theme).palette.divider}`,
+  gap: 2,
+  flexWrap: 'wrap',
+};
+
+const summarySx: SystemStyleObject<Theme> = {
+  color: 'text.secondary',
+  fontSize: '0.8125rem',
+  letterSpacing: '0.01em',
+};
+
+const controlsSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 1.5,
+} as const;
+
+const pageSizeSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 0.75,
+} as const;
+
+const pageSizeLabelSx: SystemStyleObject<Theme> = {
+  color: 'text.secondary',
+  fontSize: '0.8125rem',
+  whiteSpace: 'nowrap',
+};
+
+const pageSizeSelectSx: SystemStyleObject<Theme> = {
+  fontSize: '0.8125rem',
+  fontWeight: 500,
+  color: 'text.primary',
+  minWidth: 40,
+  '& .MuiSelect-select': {
+    paddingTop: '2px',
+    paddingBottom: '2px',
+    paddingLeft: '4px',
+    paddingRight: '24px',
   },
-  summary: {
-    color: theme.palette.text.secondary,
-    fontSize: '0.8125rem',
-    letterSpacing: '0.01em',
+  '&:before, &:after': {
+    display: 'none',
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(1.5),
-  },
-  pageSize: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(0.75),
-  },
-  pageSizeLabel: {
-    color: theme.palette.text.secondary,
-    fontSize: '0.8125rem',
-    whiteSpace: 'nowrap',
-  },
-  pageSizeSelect: {
-    fontSize: '0.8125rem',
-    fontWeight: 500,
-    color: theme.palette.text.primary,
-    minWidth: 40,
-    '& .MuiSelect-select': {
-      paddingTop: 2,
-      paddingBottom: 2,
-      paddingLeft: 4,
-      paddingRight: 24,
-    },
-    '&:before, &:after': {
-      display: 'none',
-    },
-  },
-  divider: {
-    width: 1,
-    alignSelf: 'stretch',
-    minHeight: 20,
-    backgroundColor: theme.palette.divider,
-  },
-  nav: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(0.25),
-  },
-  navButton: {
-    padding: 6,
-  },
-  pageIndicator: {
-    fontSize: '0.8125rem',
-    color: theme.palette.text.secondary,
-    minWidth: 52,
-    textAlign: 'center',
-    userSelect: 'none',
-    fontVariantNumeric: 'tabular-nums',
-  },
-}));
+};
+
+const dividerSx: SystemStyleObject<Theme> = {
+  width: 1,
+  alignSelf: 'stretch',
+  minHeight: 20,
+  backgroundColor: theme => (theme as Theme).palette.divider,
+};
+
+const navSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 0.25,
+} as const;
+
+const pageIndicatorSx: SystemStyleObject<Theme> = {
+  fontSize: '0.8125rem',
+  color: 'text.secondary',
+  minWidth: 52,
+  textAlign: 'center',
+  userSelect: 'none',
+  fontVariantNumeric: 'tabular-nums',
+};
 
 type TemplatesPaginationProps = {
   totalCount: number;
@@ -101,22 +102,21 @@ export const TemplatesPagination = ({
   onPageChange,
   onPageSizeChange,
 }: TemplatesPaginationProps) => {
-  const classes = useStyles();
   const selectedPageSize = resolvePageLimit(pageLimit);
   const singlePage = totalPages <= 1;
 
   return (
-    <Box className={classes.root} data-testid="templates-pagination">
-      <Typography className={classes.summary} component="span">
+    <Box sx={rootSx} data-testid="templates-pagination">
+      <Typography sx={summarySx} component="span">
         {totalCount === 1
           ? '1 template'
           : `${startIndex}–${endIndex} of ${totalCount} templates`}
       </Typography>
 
-      <Box className={classes.controls}>
-        <Box className={classes.pageSize}>
+      <Box sx={controlsSx}>
+        <Box sx={pageSizeSx}>
           <Typography
-            className={classes.pageSizeLabel}
+            sx={pageSizeLabelSx}
             component="span"
             id="templates-page-size-label"
           >
@@ -127,8 +127,9 @@ export const TemplatesPagination = ({
             onChange={event => {
               onPageSizeChange(Number(event.target.value));
             }}
+            variant="standard"
             disableUnderline
-            className={classes.pageSizeSelect}
+            sx={pageSizeSelectSx}
             renderValue={String}
             inputProps={{
               'aria-label': 'Templates per page',
@@ -144,11 +145,11 @@ export const TemplatesPagination = ({
           </Select>
         </Box>
 
-        <Box className={classes.divider} aria-hidden />
-        <Box className={classes.nav}>
+        <Box sx={dividerSx} aria-hidden />
+        <Box sx={navSx}>
           <IconButton
             size="small"
-            className={classes.navButton}
+            sx={{ padding: '6px' }}
             disabled={singlePage || page <= 0}
             onClick={() => onPageChange((page - 1) * pageLimit)}
             aria-label="Previous page"
@@ -156,7 +157,7 @@ export const TemplatesPagination = ({
             <NavigateBeforeIcon fontSize="small" />
           </IconButton>
           <Typography
-            className={classes.pageIndicator}
+            sx={pageIndicatorSx}
             component="span"
             data-testid="templates-page-indicator"
           >
@@ -164,7 +165,7 @@ export const TemplatesPagination = ({
           </Typography>
           <IconButton
             size="small"
-            className={classes.navButton}
+            sx={{ padding: '6px' }}
             disabled={singlePage || page + 1 >= totalPages}
             onClick={() => onPageChange((page + 1) * pageLimit)}
             aria-label="Next page"
