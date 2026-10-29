@@ -21,16 +21,17 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import { makeStyles } from '@mui/styles';
 import type { Theme } from '@mui/material/styles';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { rootRouteRef } from '../../routes';
 
-const headerStyles = makeStyles((theme: Theme) => ({
-  header_title_color: {
+const headerTitleColorSx = (theme: Theme) =>
+  ({
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
-  },
-  header_subtitle: {
+  } as const);
+
+const headerSubtitleSx = (theme: Theme) =>
+  ({
     display: 'inline-block',
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
@@ -38,31 +39,34 @@ const headerStyles = makeStyles((theme: Theme) => ({
     marginTop: '8px',
     fontWeight: 500,
     lineHeight: 1.57,
-  },
-  headerTitleContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  backButtonContainer: {
+  } as const);
+
+const headerTitleContainerSx = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+} as const;
+
+const backButtonContainerSx = (theme: Theme) =>
+  ({
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(-1),
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(-1.5),
     },
-  },
-  backButton: {
+  } as const);
+
+const backButtonSx = (theme: Theme) =>
+  ({
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.04)',
     },
-  },
-}));
+  } as const);
 
 export const CreateTask = ({
   nativeFields,
 }: { nativeFields?: FieldExtensionOptions<any, any>[] } = {}) => {
-  const classes = headerStyles();
   const { namespace, templateName } = useParams<{
     namespace: string;
     templateName: string;
@@ -202,27 +206,30 @@ export const CreateTask = ({
       <Header
         pageTitleOverride="Create Task"
         title={
-          <Box className={classes.headerTitleContainer}>
-            <Box className={classes.backButtonContainer}>
+          <Box sx={headerTitleContainerSx}>
+            <Box sx={backButtonContainerSx}>
               <IconButton
                 onClick={handleBack}
-                className={classes.backButton}
+                sx={backButtonSx}
                 aria-label="go back"
                 data-testid="back-button"
               >
                 <ArrowBack />
               </IconButton>
             </Box>
-            <span
-              className={classes.header_title_color}
+            <Box
+              component="span"
+              sx={headerTitleColorSx}
               data-testid="template-task--title"
             >
               {entityTemplate.title}
-            </span>
+            </Box>
           </Box>
         }
         subtitle={
-          <span className={classes.header_subtitle}>{description}</span>
+          <Box component="span" sx={headerSubtitleSx}>
+            {description}
+          </Box>
         }
         style={{ background: 'inherit', paddingTop: 0 }}
       />

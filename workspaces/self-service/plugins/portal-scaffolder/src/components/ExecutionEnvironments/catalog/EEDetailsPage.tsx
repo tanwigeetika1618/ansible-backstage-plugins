@@ -21,7 +21,6 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import type { Theme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import BuildIcon from '@mui/icons-material/Build';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -65,44 +64,51 @@ import {
   ExtensionActionMenuItem,
 } from '../../../extensions/ExtensionRenderer';
 
-const useActionsMenuStyles = makeStyles((theme: Theme) => ({
-  actionsButton: {
-    textTransform: 'none',
-    fontWeight: 600,
-  },
-  deleteItem: {
-    color: theme.palette.error.main,
-  },
-  menuPaper: {
-    borderRadius: 12,
-    boxShadow: '0px 8px 20px rgba(0,0,0,0.1)',
-    minWidth: 200,
-  },
-}));
+const actionsButtonSx = {
+  textTransform: 'none',
+  fontWeight: 600,
+} as const;
 
-const usePageStyles = makeStyles((theme: Theme) => ({
-  root: {
+const deleteItemSx = (theme: Theme) =>
+  ({
+    color: theme.palette.error.main,
+  } as const);
+
+const menuPaperSx = {
+  borderRadius: '12px',
+  boxShadow: '0px 8px 20px rgba(0,0,0,0.1)',
+  minWidth: 200,
+} as const;
+
+const pageRootSx = (theme: Theme) =>
+  ({
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2),
     },
-  },
-  header: {
+  } as const);
+
+const headerSx = (theme: Theme) =>
+  ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     gap: theme.spacing(2),
-  },
-  overviewGrid: {
+  } as const);
+
+const overviewGridSx = (theme: Theme) =>
+  ({
     display: 'flex',
     gap: theme.spacing(3),
     flexDirection: 'row',
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
     },
-  },
-  sidebar: {
+  } as const);
+
+const sidebarSx = (theme: Theme) =>
+  ({
     flex: 1,
     maxWidth: 320,
     display: 'flex',
@@ -111,12 +117,12 @@ const usePageStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
     },
-  },
-  readmeWrapper: {
-    flex: 1,
-    minWidth: 0,
-  },
-}));
+  } as const);
+
+const readmeWrapperSx = {
+  flex: 1,
+  minWidth: 0,
+} as const;
 
 /** Merge parallel readme + EE definition fetch outcomes; auth error if either is integration_auth. */
 function applyParallelGitFileOutcomes(
@@ -156,8 +162,6 @@ function applyParallelGitFileOutcomes(
 }
 
 export const EEDetailsPage: React.FC = () => {
-  const actionsMenuClasses = useActionsMenuStyles();
-  const pageClasses = usePageStyles();
   const { templateName } = useParams<{ templateName: string }>();
   const navigate = useNavigate();
   const rootLink = useRouteRef(rootRouteRef);
@@ -485,7 +489,7 @@ export const EEDetailsPage: React.FC = () => {
       .trim() === 'true';
 
   return (
-    <Box className={pageClasses.root}>
+    <Box sx={pageRootSx}>
       <Backdrop open={authBusy} style={{ zIndex: 1400, color: '#fff' }}>
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -518,7 +522,7 @@ export const EEDetailsPage: React.FC = () => {
       ) : (
         <>
           {/* Header */}
-          <Box className={pageClasses.header}>
+          <Box sx={headerSx}>
             <Header
               templateName={templateName?.toString() || ''}
               entity={entity || undefined}
@@ -528,7 +532,7 @@ export const EEDetailsPage: React.FC = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  className={actionsMenuClasses.actionsButton}
+                  sx={actionsButtonSx}
                   onClick={handleMenuOpen}
                   endIcon={<ArrowDropDownIcon />}
                 >
@@ -540,7 +544,7 @@ export const EEDetailsPage: React.FC = () => {
                   onClose={handleMenuClose}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                  classes={{ paper: actionsMenuClasses.menuPaper }}
+                  slotProps={{ paper: { sx: menuPaperSx } }}
                 >
                   {isEntityBuildable(entity as Entity) && (
                     <MenuItem
@@ -586,12 +590,9 @@ export const EEDetailsPage: React.FC = () => {
                       setMenuId('1');
                       handleMenuClose();
                     }}
-                    className={actionsMenuClasses.deleteItem}
+                    sx={deleteItemSx}
                   >
-                    <ListItemIcon
-                      style={{ minWidth: 36 }}
-                      className={actionsMenuClasses.deleteItem}
-                    >
+                    <ListItemIcon style={{ minWidth: 36 }} sx={deleteItemSx}>
                       <DeleteIcon fontSize="small" />
                     </ListItemIcon>
                     <Typography variant="body2">Delete</Typography>
@@ -634,9 +635,9 @@ export const EEDetailsPage: React.FC = () => {
 
                 {/* Overview */}
                 {tab === 0 && (
-                  <Box className={pageClasses.overviewGrid}>
+                  <Box sx={overviewGridSx}>
                     {/* Left Column - README (stacks first on narrow) */}
-                    <Box className={pageClasses.readmeWrapper}>
+                    <Box sx={readmeWrapperSx}>
                       <ReadmeCard
                         readmeContent={
                           typeof entity?.spec?.readme === 'string' &&
@@ -657,7 +658,7 @@ export const EEDetailsPage: React.FC = () => {
                     </Box>
 
                     {/* Right Column - About, Defined Content, Resources */}
-                    <Box className={pageClasses.sidebar}>
+                    <Box sx={sidebarSx}>
                       {/* Links Card */}
                       {isDownloadExperience && (
                         <LinksCard onDownloadArchive={handleDownloadArchive} />

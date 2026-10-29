@@ -25,7 +25,6 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
 import type { Theme } from '@mui/material/styles';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import ArrowBack from '@mui/icons-material/ArrowBack';
@@ -36,11 +35,13 @@ import {
   resolvePublishToScmFromParameters,
 } from './runTaskParameters';
 
-const headerStyles = makeStyles((theme: Theme) => ({
-  header_title_color: {
+const headerTitleColorSx = (theme: Theme) =>
+  ({
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
-  },
-  header_subtitle: {
+  } as const);
+
+const headerSubtitleSx = (theme: Theme) =>
+  ({
     display: 'inline-block',
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
@@ -48,29 +49,32 @@ const headerStyles = makeStyles((theme: Theme) => ({
     marginTop: '8px',
     fontWeight: 500,
     lineHeight: 1.57,
-  },
-  headerTitleContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  backButtonContainer: {
+  } as const);
+
+const headerTitleContainerSx = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+} as const;
+
+const backButtonContainerSx = (theme: Theme) =>
+  ({
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(-1),
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(-1.5),
     },
-  },
-  backButton: {
+  } as const);
+
+const backButtonSx = (theme: Theme) =>
+  ({
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.04)',
     },
-  },
-}));
+  } as const);
 
 export const RunTask = () => {
-  const classes = headerStyles();
   const { taskId } = useParams<{ taskId: string }>();
   if (!taskId) throw new Error('Task ID is required');
 
@@ -526,26 +530,26 @@ export const RunTask = () => {
       <Header
         pageTitleOverride="Run Task"
         title={
-          <Box className={classes.headerTitleContainer}>
-            <Box className={classes.backButtonContainer}>
+          <Box sx={headerTitleContainerSx}>
+            <Box sx={backButtonContainerSx}>
               <IconButton
                 onClick={handleBack}
-                className={classes.backButton}
+                sx={backButtonSx}
                 aria-label="go back"
                 data-testid="back-button"
               >
                 <ArrowBack />
               </IconButton>
             </Box>
-            <span className={classes.header_title_color}>
+            <Box component="span" sx={headerTitleColorSx}>
               {taskMetadata?.title}
-            </span>
+            </Box>
           </Box>
         }
         subtitle={
-          <span className={classes.header_subtitle}>
+          <Box component="span" sx={headerSubtitleSx}>
             {taskMetadata?.description}
-          </span>
+          </Box>
         }
         style={{ background: 'inherit', paddingTop: 0 }}
       />
@@ -663,7 +667,7 @@ export const RunTask = () => {
                         }}
                         variant="contained"
                         color={
-                          expandedTextIndex === index ? 'secondary' : 'default'
+                          expandedTextIndex === index ? 'secondary' : 'inherit'
                         }
                         style={{
                           flex: '0 0 calc(33.333% - 6px)',

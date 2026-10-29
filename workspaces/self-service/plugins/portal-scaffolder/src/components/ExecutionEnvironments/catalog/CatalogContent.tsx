@@ -31,7 +31,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
 import MoreVert from '@mui/icons-material/MoreVert';
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -50,40 +49,28 @@ import { useEEBuildFlow } from './useEEBuildFlow';
 
 const DESCRIPTION_TRUNCATE_LENGTH = 30;
 
-const useStyles = makeStyles((theme: Theme) => ({
-  flex: {
-    display: 'flex',
-  },
-  ml_16: {
-    marginLeft: '16px',
-  },
-  tagsContainer: {
+const flexSx = { display: 'flex' } as const;
+
+const tagsContainerSx = (theme: Theme) =>
+  ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: theme.spacing(1),
     alignItems: 'center',
-  },
-  linkButtonRoot: {
-    '&.MuiButton-root': {
-      color: '#1976d2',
-      textTransform: 'none',
-      fontSize: '1rem',
-      fontWeight: 500,
-    },
-  },
-  actionButton: {
+  } as const);
+
+const actionButtonSx = (theme: Theme) =>
+  ({
     cursor: 'pointer',
     padding: theme.spacing(0.5),
     position: 'relative',
     zIndex: 10,
-    '&:hover': {
-      opacity: 0.7,
-    },
-    '&:focus': {
-      outline: 'none',
-    },
-  },
-  entityLink: {
+    '&:hover': { opacity: 0.7 },
+    '&:focus': { outline: 'none' },
+  } as const);
+
+const entityLinkSx = (theme: Theme) =>
+  ({
     cursor: 'pointer',
     color: theme.palette.primary.main,
     textDecoration: 'none',
@@ -95,51 +82,51 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'left',
     position: 'relative',
     zIndex: 10,
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-  description: {
+    '&:hover': { textDecoration: 'underline' },
+  } as const);
+
+const descriptionSx = (theme: Theme) =>
+  ({
     color: theme.palette.text.secondary,
     fontSize: 16,
     lineHeight: 1.6,
     padding: '16px 0',
     width: '100%',
     marginBottom: '16px',
-  },
-  descriptionCell: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 4,
-    maxWidth: 240,
-    minWidth: 0,
-  },
-  descriptionCellText: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    minWidth: 0,
-    flex: 1,
-  },
-  descriptionCellTextFull: {
-    minWidth: 0,
-    flex: 1,
-  },
-  paper: {
+  } as const);
+
+const descriptionCellSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+  maxWidth: 240,
+  minWidth: 0,
+} as const;
+
+const descriptionCellTextSx = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  minWidth: 0,
+  flex: 1,
+} as const;
+
+const descriptionCellTextFullSx = {
+  minWidth: 0,
+  flex: 1,
+} as const;
+
+const paperSx = (theme: Theme) =>
+  ({
     padding: theme.spacing(1.5, 1.5),
-    borderRadius: 3,
-  },
-  filter: {
-    padding: theme.spacing(1.5, 1.5),
-    borderRadius: 5,
-    border: `1px solid ${theme.palette.divider}`,
-    backgroundColor: 'red',
-  },
-  actionsMenuPaper: {
+    borderRadius: '3px',
+  } as const);
+
+const actionsMenuPaperSx = (theme: Theme) =>
+  ({
     padding: theme.spacing(1, 0),
     minWidth: 180,
-  },
-}));
+  } as const);
 
 const ExecutionEnvironmentTypeFilter = () => {
   const { filters, updateFilters } = useEntityList();
@@ -163,7 +150,6 @@ export const EEListPage = ({
 }: {
   onTabSwitch: (index: number) => void;
 }) => {
-  const classes = useStyles();
   const theme = useTheme();
   const catalogApi = useApi(catalogApiRef);
   const { showNotification } = useNotifications();
@@ -387,7 +373,7 @@ export const EEListPage = ({
         const entityName = entity.metadata.name;
         const linkPath = `/self-service/catalog/${entityName}`;
         return (
-          <EntityLinkButton linkPath={linkPath} className={classes.entityLink}>
+          <EntityLinkButton linkPath={linkPath} sx={entityLinkSx}>
             {entityName}
           </EntityLinkButton>
         );
@@ -420,13 +406,9 @@ export const EEListPage = ({
             leaveDelay={0}
             enterDelay={300}
           >
-            <Box className={classes.descriptionCell}>
+            <Box sx={descriptionCellSx}>
               <Typography
-                className={
-                  isLong
-                    ? classes.descriptionCellText
-                    : classes.descriptionCellTextFull
-                }
+                sx={isLong ? descriptionCellTextSx : descriptionCellTextFullSx}
                 variant="body2"
               >
                 {displayText}
@@ -442,14 +424,14 @@ export const EEListPage = ({
       field: 'metadata.tags',
       id: 'tags',
       render: (entity: any) => (
-        <div className={classes.tagsContainer}>
+        <Box sx={tagsContainerSx}>
           {(entity.metadata.tags ?? []).slice(0, 3).map((t: string) => (
             <Chip key={t} label={t} size="small" />
           ))}
           {(entity.metadata.tags?.length ?? 0) > 3 && (
             <Chip label={`+${entity.metadata.tags.length - 3}`} size="small" />
           )}
-        </div>
+        </Box>
       ),
       cellStyle: { padding: '16px 16px 0px 20px' },
     },
@@ -459,10 +441,7 @@ export const EEListPage = ({
       render: (entity: any) => {
         const entityName = entity.metadata?.name;
         return (
-          <div
-            className={classes.flex}
-            style={{ position: 'relative', zIndex: 1 }}
-          >
+          <Box sx={{ ...flexSx, position: 'relative', zIndex: 1 }}>
             <FavoriteEntity entity={entity} style={{ padding: 0 }} />
             <Tooltip title="Actions">
               <IconButton
@@ -474,7 +453,7 @@ export const EEListPage = ({
                   e.preventDefault();
                   e.stopPropagation();
                 }}
-                className={classes.actionButton}
+                sx={actionButtonSx}
                 aria-label="Actions"
                 aria-haspopup="true"
                 aria-controls={
@@ -486,7 +465,7 @@ export const EEListPage = ({
                 <MoreVert fontSize="small" />
               </IconButton>
             </Tooltip>
-          </div>
+          </Box>
         );
       },
     },
@@ -501,7 +480,7 @@ export const EEListPage = ({
     <div style={{ flexDirection: 'column', width: '100%' }}>
       <ExecutionEnvironmentTypeFilter />
       {hasEntities ? (
-        <Typography variant="body1" className={classes.description}>
+        <Typography variant="body1" sx={descriptionSx}>
           Create an Execution Environment (EE) definition to ensure your
           playbooks run the same way, every time. Choose a recommended preset or
           start from scratch for full control. After saving your definition,
@@ -514,7 +493,7 @@ export const EEListPage = ({
             <UserListPicker availableFilters={['starred', 'all']} />
             <Typography>Owner</Typography>
 
-            <Paper className={classes.paper}>
+            <Paper sx={paperSx}>
               <FormControl fullWidth>
                 <Select
                   value={ownerFilter}
@@ -534,7 +513,7 @@ export const EEListPage = ({
             </Paper>
 
             <Typography style={{ marginTop: 10 }}>Tags</Typography>
-            <Paper className={classes.paper}>
+            <Paper sx={paperSx}>
               <FormControl fullWidth variant="outlined">
                 <Select
                   value={tagFilter}
@@ -594,7 +573,7 @@ export const EEListPage = ({
               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
               transformOrigin={{ vertical: 'top', horizontal: 'left' }}
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
-              PaperProps={{ className: classes.actionsMenuPaper }}
+              slotProps={{ paper: { sx: actionsMenuPaperSx } }}
             >
               {actionsMenuEntity &&
                 (() => {
@@ -790,11 +769,9 @@ export const EntityCatalogContent = ({
 }: {
   onTabSwitch: (index: number) => void;
 }) => {
-  const classes = useStyles();
-
   return (
     <Grid container spacing={2} justifyContent="space-between">
-      <Grid item xs={12} className={classes.flex}>
+      <Grid item xs={12} sx={flexSx}>
         <EntityListProvider pagination={{ mode: 'offset', limit: PAGE_SIZE }}>
           <EEListPage onTabSwitch={onTabSwitch} />
         </EntityListProvider>

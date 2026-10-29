@@ -21,7 +21,6 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
 import type { Theme } from '@mui/material/styles';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -43,11 +42,13 @@ import {
   useNotifications,
 } from '../notifications';
 
-const headerStyles = makeStyles((theme: Theme) => ({
-  header_title_color: {
+const headerTitleColorSx = (theme: Theme) =>
+  ({
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
-  },
-  header_subtitle: {
+  } as const);
+
+const headerSubtitleSx = (theme: Theme) =>
+  ({
     display: 'inline-block',
     color: theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.87)' : '#ffffff',
     opacity: 0.8,
@@ -55,8 +56,7 @@ const headerStyles = makeStyles((theme: Theme) => ({
     marginTop: '8px',
     fontWeight: 500,
     lineHeight: 1.57,
-  },
-}));
+  } as const);
 
 export interface MyTaskPageProps {
   initiallySelectedFilter?: 'owned' | 'all';
@@ -133,7 +133,6 @@ function TablePaginationActions(props: Readonly<TablePaginationActionsProps>) {
 }
 
 export const TaskList = () => {
-  const classes = headerStyles();
   const scaffolderApi = useApi(scaffolderApiRef);
   const identityApi = useApi(identityApiRef);
 
@@ -260,15 +259,19 @@ export const TaskList = () => {
       <Header
         pageTitleOverride="Tasks"
         title={
-          <span data-testid="taskHeader" className={classes.header_title_color}>
+          <Box
+            component="span"
+            data-testid="taskHeader"
+            sx={headerTitleColorSx}
+          >
             Task List
-          </span>
+          </Box>
         }
         subtitle={
-          <span className={classes.header_subtitle}>
+          <Box component="span" sx={headerSubtitleSx}>
             View all your past tasks launched from self-service automation
             portal.
-          </span>
+          </Box>
         }
         style={{ background: 'inherit' }}
       />

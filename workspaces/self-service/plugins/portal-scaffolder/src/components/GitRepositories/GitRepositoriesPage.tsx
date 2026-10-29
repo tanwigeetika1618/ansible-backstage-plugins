@@ -19,7 +19,6 @@ import {
 } from '@backstage/core-components';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
 import type { Theme } from '@mui/material/styles';
 import {
   Navigate,
@@ -64,8 +63,8 @@ import { RepositoriesCIActivityTab } from './RepositoriesCIActivityTab';
 import { RepositoryDetailsPage } from './RepositoryDetailsPage';
 import { gitReposCache } from './gitReposCache';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  tabsSection: {
+const tabsSectionSx = (theme: Theme) =>
+  ({
     width: '100%',
     '& .MuiTabs-root': {
       overflow: 'visible',
@@ -80,16 +79,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: theme.spacing(2, 5),
       fontSize: 16,
     },
-  },
-  tabWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-  },
-  tabContent: {
+  } as const);
+
+const tabWithIconSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 1,
+} as const;
+
+const tabContentSx = (theme: Theme) =>
+  ({
     paddingTop: theme.spacing(3),
-  },
-}));
+  } as const);
 
 const tabs = [
   { id: 0, label: 'Catalog', icon: <CategoryOutlinedIcon />, path: 'catalog' },
@@ -106,7 +107,6 @@ const getTabIndexFromPath = (pathname: string): number => {
 
 /** Render the filtered repository catalog with host contributions and permission-gated actions. */
 export const GitRepositoriesPage = () => {
-  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
   const discoveryApi = useApi(discoveryApiRef);
@@ -337,7 +337,7 @@ export const GitRepositoriesPage = () => {
             </>
           }
         />
-        <Box className={classes.tabsSection}>
+        <Box sx={tabsSectionSx}>
           <HeaderTabs
             selectedIndex={activeTabIndex}
             onChange={onTabSelect}
@@ -346,7 +346,7 @@ export const GitRepositoriesPage = () => {
                 ...tabs.map(({ label, icon }) => ({
                   id: label.toLowerCase().replaceAll(/\s+/g, '-'),
                   label: (
-                    <Box className={classes.tabWithIcon}>
+                    <Box sx={tabWithIconSx}>
                       {icon}
                       {label}
                     </Box>
@@ -357,7 +357,7 @@ export const GitRepositoriesPage = () => {
                   return {
                     id: et.id,
                     label: (
-                      <Box className={classes.tabWithIcon}>
+                      <Box sx={tabWithIconSx}>
                         {Icon && <Icon fontSize="small" />}
                         {et.label}
                       </Box>
@@ -368,7 +368,7 @@ export const GitRepositoriesPage = () => {
             }
           />
         </Box>
-        <Box className={classes.tabContent}>{content}</Box>
+        <Box sx={tabContentSx}>{content}</Box>
       </Content>
       <SyncDialog
         open={syncDialogOpen}

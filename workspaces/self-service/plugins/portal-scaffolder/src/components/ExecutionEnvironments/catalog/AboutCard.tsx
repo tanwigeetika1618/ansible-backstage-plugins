@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
+import { keyframes } from '@mui/material/styles';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -17,99 +17,107 @@ import { useState } from 'react';
 import { Entity } from '@backstage/catalog-model';
 import { getEntityEEDefinitionUrl } from './helpers';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  tagButton: {
-    borderRadius: 8,
-    borderColor: '#D3D3D3',
-    textTransform: 'none',
-  },
-  descriptionTruncate: {
-    display: '-webkit-box',
-    WebkitLineClamp: 4,
-    WebkitBoxOrient: 'vertical' as const,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  rotate: {
-    animation: '$spin 1s linear infinite',
-  },
-  '@keyframes spin': {
-    '0%': { transform: 'rotate(0deg)' },
-    '100%': { transform: 'rotate(360deg)' },
-  },
-  descriptionExpand: {
-    color: 'primary',
-    cursor: 'pointer',
-    fontWeight: 600,
-  },
-  sourceLinkRow: {
-    display: 'flex',
-    alignItems: 'center',
-    gridGap: 8,
-    marginBottom: 8,
-    '&:last-child': { marginBottom: 0 },
-  },
-  aboutCard: {
-    borderRadius: 12,
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const rotateSx = {
+  animation: `${spin} 1s linear infinite`,
+} as const;
+
+const descriptionExpandSx = {
+  color: 'primary',
+  cursor: 'pointer',
+  fontWeight: 600,
+} as const;
+
+const sourceLinkRowSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gridGap: 8,
+  marginBottom: 1,
+  '&:last-child': { marginBottom: 0 },
+} as const;
+
+const aboutCardSx = (theme: Theme) =>
+  ({
+    borderRadius: '12px',
     border: `1px solid ${theme.palette.divider}`,
-  },
-  aboutCardContent: {
+  } as const);
+
+const aboutCardContentSx = (theme: Theme) =>
+  ({
     padding: theme.spacing(2.5),
-  },
-  aboutCardHeader: {
+  } as const);
+
+const aboutCardHeaderSx = (theme: Theme) =>
+  ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: theme.spacing(2),
-  },
-  aboutCardTitle: {
-    fontWeight: 600,
-    fontSize: '1.25rem',
-  },
-  aboutCardActions: {
+  } as const);
+
+const aboutCardTitleSx = {
+  fontWeight: 600,
+  fontSize: '1.25rem',
+} as const;
+
+const aboutCardActionsSx = (theme: Theme) =>
+  ({
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(0.5),
-  },
-  aboutCardLabel: {
+  } as const);
+
+const aboutCardLabelSx = (theme: Theme) =>
+  ({
     color: theme.palette.text.secondary,
     fontWeight: 600,
     fontSize: '0.75rem',
-    textTransform: 'uppercase' as const,
+    textTransform: 'uppercase',
     marginBottom: theme.spacing(0.5),
-  },
-  aboutCardValue: {
-    fontSize: '0.875rem',
-    wordBreak: 'break-word' as const,
-  },
-  aboutCardSection: {
+  } as const);
+
+const aboutCardValueSx = {
+  fontSize: '0.875rem',
+  wordBreak: 'break-word',
+} as const;
+
+const aboutCardSectionSx = (theme: Theme) =>
+  ({
     marginTop: theme.spacing(2),
-  },
-  aboutSourceIcon: {
-    fontSize: '0.875rem',
-    flexShrink: 0,
-  },
-  aboutCardDivider: {
+  } as const);
+
+const aboutSourceIconSx = {
+  fontSize: '0.875rem',
+  flexShrink: 0,
+} as const;
+
+const aboutCardDividerSx = (theme: Theme) =>
+  ({
     margin: theme.spacing(2, -2.5),
-  },
-  aboutCardTag: {
-    borderRadius: 6,
+  } as const);
+
+const aboutCardTagSx = (theme: Theme) =>
+  ({
+    borderRadius: '6px',
     borderColor: theme.palette.divider,
-    textTransform: 'none' as const,
+    textTransform: 'none',
     fontSize: '0.75rem',
     padding: theme.spacing(0.25, 1),
-  },
-  aboutSourceLink: {
+  } as const);
+
+const aboutSourceLinkSx = (theme: Theme) =>
+  ({
     color: theme.palette.primary.main,
     textDecoration: 'none',
     display: 'inline-flex',
     alignItems: 'center',
     gap: theme.spacing(0.5),
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-}));
+    '&:hover': { textDecoration: 'underline' },
+  } as const);
 
 interface AboutCardProps {
   entity: Entity;
@@ -130,7 +138,6 @@ export const AboutCard: React.FC<AboutCardProps> = ({
   isDownloadExperience,
   onRefresh,
 }) => {
-  const classes = useStyles();
   const theme = useTheme();
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const scmProvider =
@@ -147,12 +154,12 @@ export const AboutCard: React.FC<AboutCardProps> = ({
   const showReadMore = description.length > 150;
 
   return (
-    <Card className={classes.aboutCard} variant="outlined">
-      <CardContent className={classes.aboutCardContent}>
-        <Box className={classes.aboutCardHeader}>
-          <Typography className={classes.aboutCardTitle}>About</Typography>
+    <Card sx={aboutCardSx} variant="outlined">
+      <CardContent sx={aboutCardContentSx}>
+        <Box sx={aboutCardHeaderSx}>
+          <Typography sx={aboutCardTitleSx}>About</Typography>
           {!isDownloadExperience && (
-            <Box className={classes.aboutCardActions}>
+            <Box sx={aboutCardActionsSx}>
               <Tooltip title="Refresh">
                 <IconButton
                   size="small"
@@ -161,7 +168,7 @@ export const AboutCard: React.FC<AboutCardProps> = ({
                   aria-label="Refresh"
                 >
                   <AutorenewIcon
-                    className={isRefreshing ? classes.rotate : ''}
+                    sx={isRefreshing ? rotateSx : undefined}
                     style={{ color: '#757575' }}
                   />
                 </IconButton>
@@ -184,10 +191,8 @@ export const AboutCard: React.FC<AboutCardProps> = ({
 
         {/* Description - inline expand when > 150 chars, no TechDocs link */}
         <Box>
-          <Typography className={classes.aboutCardLabel}>
-            Description
-          </Typography>
-          <Typography className={classes.aboutCardValue}>
+          <Typography sx={aboutCardLabelSx}>Description</Typography>
+          <Typography sx={aboutCardValueSx}>
             {showReadMore && !descriptionExpanded
               ? `${description.slice(0, 150)}...`
               : description}
@@ -198,7 +203,7 @@ export const AboutCard: React.FC<AboutCardProps> = ({
                 <Link
                   component="button"
                   variant="body2"
-                  className={classes.descriptionExpand}
+                  sx={descriptionExpandSx}
                   onClick={() => setDescriptionExpanded(false)}
                 >
                   Read less
@@ -207,7 +212,7 @@ export const AboutCard: React.FC<AboutCardProps> = ({
                 <Link
                   component="button"
                   variant="body2"
-                  className={classes.descriptionExpand}
+                  sx={descriptionExpandSx}
                   onClick={() => setDescriptionExpanded(true)}
                 >
                   Read more
@@ -218,35 +223,31 @@ export const AboutCard: React.FC<AboutCardProps> = ({
         </Box>
 
         {/* Owner */}
-        <Box className={classes.aboutCardSection}>
-          <Typography className={classes.aboutCardLabel}>Owner</Typography>
-          <Typography className={classes.aboutCardValue}>
-            {ownerName}
-          </Typography>
+        <Box sx={aboutCardSectionSx}>
+          <Typography sx={aboutCardLabelSx}>Owner</Typography>
+          <Typography sx={aboutCardValueSx}>{ownerName}</Typography>
         </Box>
 
         {/* Base image */}
-        <Box className={classes.aboutCardSection}>
-          <Typography className={classes.aboutCardLabel}>Base image</Typography>
-          <Typography className={classes.aboutCardValue}>
-            {baseImageName ?? '—'}
-          </Typography>
+        <Box sx={aboutCardSectionSx}>
+          <Typography sx={aboutCardLabelSx}>Base image</Typography>
+          <Typography sx={aboutCardValueSx}>{baseImageName ?? '—'}</Typography>
         </Box>
 
         {/* Source - hidden when download-experience is true; label by SCM, View in source + readme.md like Resources card */}
         {!isDownloadExperience && (
-          <Box className={classes.aboutCardSection}>
-            <Typography className={classes.aboutCardLabel}>Source</Typography>
+          <Box sx={aboutCardSectionSx}>
+            <Typography sx={aboutCardLabelSx}>Source</Typography>
             {sourceLocationUrl ? (
-              <Box className={classes.sourceLinkRow}>
+              <Box sx={sourceLinkRowSx}>
                 <Link
                   href={sourceLocationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={classes.aboutSourceLink}
+                  sx={aboutSourceLinkSx}
                 >
                   <span>{sourceLabel}</span>
-                  <OpenInNewIcon className={classes.aboutSourceIcon} />
+                  <OpenInNewIcon sx={aboutSourceIconSx} />
                 </Link>
               </Box>
             ) : (
@@ -257,12 +258,12 @@ export const AboutCard: React.FC<AboutCardProps> = ({
           </Box>
         )}
 
-        <Divider className={classes.aboutCardDivider} />
+        <Divider sx={aboutCardDividerSx} />
 
         {/* Tags */}
         <Box marginTop={2}>
-          <Typography className={classes.aboutCardLabel}>Tags</Typography>
-          <Box display="flex" gridGap={8} marginTop={1} flexWrap="wrap">
+          <Typography sx={aboutCardLabelSx}>Tags</Typography>
+          <Box sx={{ display: 'flex', gap: 1, marginTop: 1, flexWrap: 'wrap' }}>
             {Array.isArray(entity?.metadata?.tags) &&
             entity.metadata?.tags?.length > 0 ? (
               entity.metadata?.tags?.map((t: string) => (
@@ -270,17 +271,14 @@ export const AboutCard: React.FC<AboutCardProps> = ({
                   key={t}
                   variant="outlined"
                   size="small"
-                  className={classes.aboutCardTag}
+                  sx={aboutCardTagSx}
                   disabled
                 >
                   {t}
                 </Button>
               ))
             ) : (
-              <Typography
-                className={classes.aboutCardValue}
-                color="text.secondary"
-              >
+              <Typography sx={aboutCardValueSx} color="text.secondary">
                 No tags
               </Typography>
             )}
